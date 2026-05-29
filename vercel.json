@@ -3,8 +3,7 @@
   "buildCommand": "pnpm build",
   "devCommand": "pnpm dev",
   "installCommand": "pnpm install",
-  "regions": ["sin1", "sfo1"],
-  "headers": [
+"headers": [
     {
       "source": "/_next/static/(.*)",
       "headers": [
