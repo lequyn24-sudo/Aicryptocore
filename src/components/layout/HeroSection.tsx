@@ -72,78 +72,75 @@ interface HeroSectionProps {
 
 export function HeroSection({ featured }: HeroSectionProps) {
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-[380px_1fr_250px] gap-4 mb-6">
+    <div className="grid grid-cols-1 lg:grid-cols-[30%_1fr_22%] gap-4 mb-6">
 
       {/* ════ LEFT: Featured Insight ════ */}
-      <div className="relative rounded-2xl overflow-hidden min-h-[420px] flex flex-col justify-between p-6"
-        style={{ background: 'linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%)' }}>
+      <div className="relative overflow-hidden rounded-2xl aspect-[4/5] lg:min-h-[440px]">
+
+        {/* Image — absolute fill toàn card */}
+        <Image
+          src={featured.coverImage}
+          alt={featured.coverImageAlt}
+          fill
+          sizes="(max-width: 1024px) 100vw, 30vw"
+          className="object-cover object-center"
+          priority
+        />
+
+        {/* Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-t from-[#1a0a4a] via-[#1a0a4a]/60 to-transparent" />
 
         {/* Circuit grid overlay */}
-        <div className="absolute inset-0 opacity-10"
+        <div className="absolute inset-0 opacity-8 pointer-events-none"
           style={{
             backgroundImage: `
-              linear-gradient(rgba(99,102,241,0.4) 1px, transparent 1px),
-              linear-gradient(90deg, rgba(99,102,241,0.4) 1px, transparent 1px)
+              linear-gradient(rgba(99,102,241,0.3) 1px, transparent 1px),
+              linear-gradient(90deg, rgba(99,102,241,0.3) 1px, transparent 1px)
             `,
             backgroundSize: '32px 32px',
           }} />
 
-        {/* Article image — robot-like feel with positioning */}
-        <div className="absolute right-0 bottom-0 w-48 h-48 opacity-30 pointer-events-none">
-          <Image
-            src={featured.coverImage}
-            alt=""
-            fill
-            sizes="192px"
-            className="object-cover object-top"
-            priority
-          />
-          <div className="absolute inset-0 bg-gradient-to-l from-transparent via-transparent to-[#0f0c29]" />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#24243e] to-transparent" />
-        </div>
-
         {/* Glow orb */}
-        <div className="absolute bottom-12 right-12 w-32 h-32 rounded-full pointer-events-none"
-          style={{ background: 'radial-gradient(circle, rgba(99,102,241,0.35) 0%, transparent 70%)' }} />
+        <div className="absolute bottom-16 right-8 w-28 h-28 rounded-full pointer-events-none"
+          style={{ background: 'radial-gradient(circle, rgba(99,102,241,0.30) 0%, transparent 70%)' }} />
 
         {/* Content */}
-        <div className="relative z-10">
-          {/* Badge */}
-          <span className="inline-flex items-center text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-full mb-4"
-            style={{ background: 'rgba(99,102,241,0.25)', color: '#a5b4fc', border: '1px solid rgba(99,102,241,0.35)' }}>
-            Featured Insight
-          </span>
+        <div className="absolute inset-0 z-10 flex flex-col justify-between p-6">
+          {/* Top */}
+          <div>
+            <span className="inline-flex items-center text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-full mb-4"
+              style={{ background: 'rgba(99,102,241,0.25)', color: '#a5b4fc', border: '1px solid rgba(99,102,241,0.35)' }}>
+              Featured Insight
+            </span>
 
-          {/* Title */}
-          <h1 className="text-xl font-bold text-white leading-snug mb-3"
-            style={{ fontFamily: 'var(--font-display)' }}>
-            {featured.title}
-          </h1>
+            <h1 className="text-xl font-bold text-white leading-snug mb-3"
+              style={{ fontFamily: 'var(--font-display)' }}>
+              {featured.title}
+            </h1>
 
-          {/* Description */}
-          <p className="text-sm text-white/60 leading-relaxed line-clamp-3">
-            {featured.description}
-          </p>
-        </div>
+            <p className="text-sm text-white/60 leading-relaxed line-clamp-3">
+              {featured.description}
+            </p>
+          </div>
 
-        {/* Bottom: CTA + dots */}
-        <div className="relative z-10">
-          <Link href={featured.href} className="btn-amber inline-flex items-center gap-2 mb-4">
-            Read Full Insight <ArrowRight size={14} />
-          </Link>
+          {/* Bottom: CTA + dots */}
+          <div>
+            <Link href={featured.href} className="btn-amber inline-flex items-center gap-2 mb-4">
+              Read Full Insight <ArrowRight size={14} />
+            </Link>
 
-          {/* Pagination dots */}
-          <div className="flex items-center gap-1.5">
-            <span className="w-5 h-1.5 rounded-full bg-white/80" />
-            <span className="w-1.5 h-1.5 rounded-full bg-white/30" />
-            <span className="w-1.5 h-1.5 rounded-full bg-white/30" />
-            <span className="w-1.5 h-1.5 rounded-full bg-white/30" />
+            <div className="flex items-center gap-1.5">
+              <span className="w-5 h-1.5 rounded-full bg-white/80" />
+              <span className="w-1.5 h-1.5 rounded-full bg-white/30" />
+              <span className="w-1.5 h-1.5 rounded-full bg-white/30" />
+              <span className="w-1.5 h-1.5 rounded-full bg-white/30" />
+            </div>
           </div>
         </div>
       </div>
 
       {/* ════ CENTER: Signal Map ════ */}
-      <div className="rounded-2xl border border-glass overflow-hidden bg-surface flex flex-col">
+      <div className="rounded-2xl border border-glass overflow-hidden bg-surface h-auto">
         {/* Header */}
         <div className="flex items-center justify-between px-4 py-2.5 shrink-0"
           style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
@@ -161,7 +158,7 @@ export function HeroSection({ featured }: HeroSectionProps) {
         </div>
 
         {/* Signal cards — subtle dividers */}
-        <div className="grid grid-cols-5 flex-1" style={{ borderTop: 'none' }}>
+        <div className="grid grid-cols-5" style={{ borderTop: 'none' }}>
           {SIGNALS.map((sig, idx) => {
             const st = STATUS[sig.status]
             const data = SPARKLINES[sig.key as keyof typeof SPARKLINES]
