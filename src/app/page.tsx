@@ -101,11 +101,17 @@ export default function HomePage() {
           {/* Projects section */}
           <ProjectsSection articles={projectArticles} />
 
-          {/* Category sections */}
+          {/* Category sections — 4 articles each; AI Data uses horizontal card layout */}
           {mainCategories.map((category) => {
-            const articles = getArticlesByCategory(category.slug).slice(0, 3)
+            const articles = getArticlesByCategory(category.slug).slice(0, 4)
+            const isHorizontal = category.slug === 'ai-data'
             return (
-              <CategorySection key={category.slug} category={category} articles={articles} />
+              <CategorySection
+                key={category.slug}
+                category={category}
+                articles={articles}
+                layout={isHorizontal ? 'horizontal' : 'grid'}
+              />
             )
           })}
 

@@ -350,6 +350,190 @@ export const MOCK_ARTICLES: Article[] = [
     `,
     href: '/ai-infrastructure/decentralized-ai-model-marketplace-10000-models',
   },
+  // ── ai-agents extra ──
+  {
+    title: 'DeFi Agents Surpass $2B AUM as Autonomous Portfolio Management Goes Mainstream',
+    description: 'Autonomous DeFi agents now collectively manage over $2 billion in assets, marking a tipping point for AI-driven portfolio management on-chain.',
+    slug: 'defi-agents-2b-aum-autonomous-portfolio-management',
+    category: 'ai-agents',
+    subcategory: 'defi-agents',
+    publishedAt: '2026-05-17T10:00:00Z',
+    author: AUTHOR_SARAH,
+    coverImage: '/thumbnails/futuristic-financial-hub-scene-file-4.jpeg',
+    coverImageAlt: 'DeFi agents managing portfolio across multiple protocols',
+    tags: ['defi-agents', 'portfolio', 'aum', 'autonomous'],
+    readingTime: 5,
+    featured: false,
+    content: `<p>Autonomous DeFi agents have crossed $2 billion in combined assets under management for the first time, signaling a major shift in how on-chain capital is deployed and managed. Protocols like Yearn Finance, Beefy, and newer AI-native platforms are driving this growth.</p>
+<h2>What's Driving Adoption</h2>
+<p>The primary driver is yield optimization. AI agents can monitor hundreds of pools simultaneously, rebalancing positions within milliseconds of a better opportunity arising. Users who previously needed to manually manage strategies across 5-10 protocols now delegate entirely to agents.</p>
+<h2>Risk Management Evolution</h2>
+<p>The latest generation of DeFi agents incorporates multi-layered risk assessment, combining on-chain liquidity metrics, smart contract audit scores, and off-chain news sentiment to avoid rug pulls and exploits. Early data suggests AI-managed portfolios have 40% fewer liquidation events than manually managed equivalents.</p>`,
+    href: '/ai-agents/defi-agents-2b-aum-autonomous-portfolio-management',
+  },
+  {
+    title: 'On-Chain Trading Agent Networks Generate $400M Daily Volume Across Top DEXs',
+    description: 'Coordinated networks of AI trading agents now account for nearly 18% of total DEX volume, fundamentally changing market microstructure on Uniswap and Curve.',
+    slug: 'trading-agent-networks-400m-daily-dex-volume',
+    category: 'ai-agents',
+    subcategory: 'trading-agents',
+    publishedAt: '2026-05-15T14:00:00Z',
+    author: AUTHOR_MARCUS,
+    coverImage: '/thumbnails/michael-saylor-explains-why-he-may-sell-bitcoin-thumbnail.jpg',
+    coverImageAlt: 'Trading agent dashboard showing DEX volume statistics',
+    tags: ['trading-agents', 'dex', 'volume', 'market-making'],
+    readingTime: 4,
+    featured: false,
+    content: `<p>AI trading agent networks have become a dominant force on decentralized exchanges, collectively responsible for $400 million in daily volume — approximately 18% of total DEX activity. This represents a tenfold increase from 12 months ago.</p>
+<h2>Market Microstructure Impact</h2>
+<p>The proliferation of trading agents has measurably tightened spreads on major pairs. ETH/USDC spreads on Uniswap V4 have fallen to 0.02% during peak hours, rivaling centralized exchange liquidity. This benefits retail traders but has reduced profitability for traditional market makers.</p>
+<h2>Coordination and Competition</h2>
+<p>Interestingly, competing agent networks have developed implicit coordination mechanisms. When one network detects abnormal liquidity conditions, its withdrawal triggers cascading responses from other networks, creating a form of emergent market circuit breaker. Researchers at Uniswap Labs are studying these dynamics for potential formalization.</p>`,
+    href: '/ai-agents/trading-agent-networks-400m-daily-dex-volume',
+  },
+  // ── ai-infrastructure extra ──
+  {
+    title: 'Open-Source AI Models Deployed On-Chain Top 5,000: A New Infrastructure Milestone',
+    description: 'The number of open-source AI models running directly on decentralized infrastructure has exceeded 5,000, with inference costs dropping 60% year-over-year.',
+    slug: 'open-source-ai-models-onchain-5000-milestone',
+    category: 'ai-infrastructure',
+    subcategory: 'models',
+    publishedAt: '2026-05-18T09:00:00Z',
+    author: AUTHOR_ALEX,
+    coverImage: '/thumbnails/unnamed.png',
+    coverImageAlt: 'Network visualization of distributed AI models on blockchain',
+    tags: ['ai-models', 'open-source', 'inference', 'infrastructure'],
+    readingTime: 5,
+    featured: false,
+    content: `<p>A landmark has been reached in decentralized AI infrastructure: more than 5,000 open-source AI models are now deployed and callable directly from blockchain environments. The milestone reflects 18 months of rapid growth in on-chain AI infrastructure tooling.</p>
+<h2>Cost Curve Improvements</h2>
+<p>Inference costs for on-chain AI have fallen approximately 60% year-over-year, driven by hardware improvements among node operators and more efficient model quantization techniques. A GPT-3.5-equivalent inference call that cost $0.02 in early 2025 now costs $0.008 on leading platforms.</p>
+<h2>Key Infrastructure Providers</h2>
+<p>SingularityNET (3,100 models), Ocean Protocol's Compute-to-Data (980 models), and the newer Giza platform (720 models) account for the majority. Each takes a different approach to model privacy, with Giza's zero-knowledge proof verification gaining particular traction for sensitive financial applications.</p>`,
+    href: '/ai-infrastructure/open-source-ai-models-onchain-5000-milestone',
+  },
+  {
+    title: 'AI Safety Protocols for Autonomous On-Chain Agents: The 2026 Technical Benchmark',
+    description: 'A cross-industry consortium has published the first technical safety benchmark for autonomous on-chain AI agents, covering kill switches, spend limits, and anomaly detection.',
+    slug: 'ai-safety-protocols-autonomous-onchain-agents-2026',
+    category: 'ai-infrastructure',
+    subcategory: 'safety',
+    publishedAt: '2026-05-16T11:00:00Z',
+    author: AUTHOR_SARAH,
+    coverImage: '/thumbnails/006-1024x614.jpg',
+    coverImageAlt: 'Security shield over blockchain network representing AI safety',
+    tags: ['ai-safety', 'security', 'autonomous-agents', 'benchmark'],
+    readingTime: 6,
+    featured: false,
+    content: `<p>The AI Safety for On-Chain Systems (ASOCS) consortium has released its inaugural technical benchmark, providing the first standardized framework for assessing the safety of autonomous AI agents operating on public blockchains. The 47-page document covers everything from kill switch implementation to spend limit enforcement.</p>
+<h2>Core Safety Requirements</h2>
+<p>The benchmark defines three mandatory safety layers: a hardware-level kill switch accessible to smart contract governance, per-transaction spend limits enforced at the protocol level, and real-time anomaly detection that can pause agent operations within one block confirmation (approximately 12 seconds on Ethereum).</p>
+<h2>Industry Response</h2>
+<p>Initial response from major AI agent platforms has been positive. Autonolas, Fetch.ai, and Giza have all committed to achieving ASOCS Level 1 certification by Q4 2026. The certification process is expected to cost between $150K-$400K depending on agent complexity, which critics note may exclude smaller projects.</p>`,
+    href: '/ai-infrastructure/ai-safety-protocols-autonomous-onchain-agents-2026',
+  },
+  // ── ai-data extra ──
+  {
+    title: 'On-Chain Analytics Platforms Add AI Prediction Layers to Real-Time Dashboards',
+    description: 'Dune Analytics, Nansen, and Glassnode have all launched AI-powered predictive overlays on their dashboards, transforming raw on-chain data into actionable forward-looking intelligence.',
+    slug: 'onchain-analytics-ai-prediction-layers-dashboards',
+    category: 'ai-data',
+    subcategory: 'analytics',
+    publishedAt: '2026-05-20T15:00:00Z',
+    author: AUTHOR_MARCUS,
+    coverImage: '/thumbnails/2025-10-10T145959.360Zunnamed-1024x527.png',
+    coverImageAlt: 'Analytics dashboard with AI prediction overlays showing blockchain metrics',
+    tags: ['analytics', 'prediction', 'dune', 'nansen', 'glassnode'],
+    readingTime: 4,
+    featured: false,
+    content: `<p>The three largest on-chain analytics platforms have simultaneously launched AI prediction layers, fundamentally changing the nature of blockchain data analysis from retrospective to prospective. Users can now ask "what will happen?" rather than just "what happened?"</p>
+<h2>Feature Comparison</h2>
+<p>Dune Analytics' "Wizard AI" generates natural-language summaries of query results and suggests follow-up analyses. Nansen's "Alpha Layer" uses whale wallet behavior patterns to predict price movements 4-8 hours ahead with 67% accuracy in backtests. Glassnode's "Forward View" focuses on macro-level metrics like miner capitulation risk and exchange inflow pressure.</p>
+<h2>Data Privacy Implications</h2>
+<p>The integration of AI prediction into public analytics tools raises questions about front-running. When a publicly accessible AI model predicts a significant wallet movement, sophisticated traders may position ahead of the predicted event, creating self-fulfilling prophecies or adversarial dynamics.</p>`,
+    href: '/ai-data/onchain-analytics-ai-prediction-layers-dashboards',
+  },
+  {
+    title: 'The Graph Protocol Integrates AI-Powered Query Optimization Reducing Costs by 45%',
+    description: "The Graph's new AI query optimizer intelligently routes and caches subgraph queries, reducing indexer costs by up to 45% while improving response times for complex data requests.",
+    slug: 'graph-protocol-ai-query-optimization-45-percent',
+    category: 'ai-data',
+    subcategory: 'indexing',
+    publishedAt: '2026-05-18T12:00:00Z',
+    author: AUTHOR_SARAH,
+    coverImage: '/thumbnails/stablecoins-mas-scs-rules-metacomp-1024x559.jpg',
+    coverImageAlt: 'The Graph protocol network with AI optimization paths highlighted',
+    tags: ['graph-protocol', 'indexing', 'query-optimization', 'grt'],
+    readingTime: 4,
+    featured: false,
+    content: `<p>The Graph Foundation has shipped a major protocol upgrade that integrates an AI query optimizer directly into the indexer stack. Early benchmarks show 45% cost reduction for complex multi-subgraph queries and 3x improvement in response times for frequently accessed data patterns.</p>
+<h2>How the Optimizer Works</h2>
+<p>The AI system analyzes query patterns across The Graph's 80,000+ daily active subgraphs to identify opportunities for pre-caching, query rewriting, and parallel execution. Unlike static optimization rules, the model continuously learns from query traffic, improving over time without human intervention.</p>
+<h2>Indexer Economics</h2>
+<p>For indexers, the cost reduction directly improves margins on GRT rewards. Mid-sized indexers operating 50-100 subgraphs report monthly infrastructure cost savings of $8,000-$25,000. The optimization particularly benefits complex DeFi subgraphs that previously required expensive compute for each query.</p>`,
+    href: '/ai-data/graph-protocol-ai-query-optimization-45-percent',
+  },
+  {
+    title: "AI-Augmented Oracle Networks Achieve 99.99% Uptime in Q1 2026 Stress Test",
+    description: "A coordinated stress test across Chainlink, Pyth, and API3 demonstrated that AI-augmented oracle networks maintained 99.99% data accuracy during three simulated market crises.",
+    slug: 'ai-augmented-oracle-networks-9999-uptime-stress-test',
+    category: 'ai-data',
+    subcategory: 'oracles',
+    publishedAt: '2026-05-14T09:00:00Z',
+    author: AUTHOR_ALEX,
+    coverImage: '/thumbnails/ripple-to-acquire-bc-payments-afsl-1024x559.jpg',
+    coverImageAlt: 'Oracle network nodes showing high availability metrics',
+    tags: ['oracles', 'chainlink', 'pyth', 'uptime', 'stress-test'],
+    readingTime: 4,
+    featured: false,
+    content: `<p>A coordinated industry stress test involving Chainlink, Pyth Network, and API3 demonstrated that AI-augmented oracle infrastructure can maintain near-perfect data accuracy even during extreme market conditions. The test simulated three scenarios: a flash crash, a major CEX outage, and coordinated price manipulation attempts.</p>
+<h2>Test Results</h2>
+<p>Across all three scenarios, AI-augmented feeds maintained 99.99% data accuracy versus 99.2% for standard consensus mechanisms. The key difference: AI models can detect and filter anomalous data inputs in real time, even when multiple data sources are compromised simultaneously.</p>
+<h2>Implications for DeFi Security</h2>
+<p>Oracle manipulation has historically been one of the most common attack vectors in DeFi, responsible for hundreds of millions in losses. The stress test results suggest AI augmentation could effectively close this attack surface, potentially unlocking institutional adoption that has been held back by oracle reliability concerns.</p>`,
+    href: '/ai-data/ai-augmented-oracle-networks-9999-uptime-stress-test',
+  },
+  // ── ai-ecosystem extra ──
+  {
+    title: 'Cosmos-Based AI Chains Gain Ground as Preferred Settlement Layer for Agent Transactions',
+    description: "Three new Cosmos SDK chains purpose-built for AI agent settlement have launched in Q2 2026, each targeting different verticals within the emerging agent economy.",
+    slug: 'cosmos-ai-chains-agent-settlement-layer-q2-2026',
+    category: 'ai-ecosystem',
+    subcategory: 'layer1',
+    publishedAt: '2026-05-16T08:00:00Z',
+    author: AUTHOR_ALEX,
+    coverImage: '/thumbnails/2025-10-19T153704.419Zunnamed.png',
+    coverImageAlt: 'Cosmos IBC network with AI chains interconnected',
+    tags: ['cosmos', 'layer1', 'agent-settlement', 'ibc'],
+    readingTime: 5,
+    featured: false,
+    content: `<p>The Cosmos ecosystem is emerging as the preferred home for AI-native blockchains, with three significant new chains launching in Q2 2026. AgentChain, NeuralHub, and AutonomOS each target specific segments of the agent economy with optimized fee structures and native tooling.</p>
+<h2>Why Cosmos for AI Agents?</h2>
+<p>The Cosmos SDK's modular architecture makes it uniquely suited for agent-specific customization. Developers can implement custom transaction types optimized for agent-to-agent communication, deploy domain-specific consensus mechanisms with faster finality for time-sensitive agent decisions, and use IBC for cross-chain agent coordination without expensive bridge fees.</p>
+<h2>TVL and Adoption Trajectory</h2>
+<p>Combined, the three new chains have attracted $340M in TVL within 90 days of launch — exceptional for new infrastructure chains. Developer activity is particularly strong, with 180+ active agent deployments already generating real transaction fees.</p>`,
+    href: '/ai-ecosystem/cosmos-ai-chains-agent-settlement-layer-q2-2026',
+  },
+  {
+    title: "Data-AI Convergence: How Blockchain Networks Are Becoming Foundational AI Infrastructure",
+    description: "The boundaries between data networks and AI infrastructure are blurring as Ocean Protocol, Filecoin, and Arweave evolve to natively support AI training data pipelines.",
+    slug: 'data-ai-convergence-blockchain-ai-infrastructure',
+    category: 'ai-ecosystem',
+    subcategory: 'data-ai',
+    publishedAt: '2026-05-13T10:00:00Z',
+    author: AUTHOR_SARAH,
+    coverImage: '/thumbnails/unnamed.png',
+    coverImageAlt: 'Data and AI merging visualization over blockchain network',
+    tags: ['data-ai', 'ocean', 'filecoin', 'arweave', 'convergence'],
+    readingTime: 5,
+    featured: false,
+    content: `<p>A fundamental convergence is underway: decentralized data networks originally designed for storage and exchange are rapidly evolving into comprehensive AI infrastructure platforms. Ocean Protocol, Filecoin, and Arweave are each making substantial pivots to capture the AI training data market.</p>
+<h2>Ocean Protocol's Compute-to-Data Evolution</h2>
+<p>Ocean's Compute-to-Data architecture has been redesigned specifically for AI training workflows. Version 3.0 supports federated learning across distributed datasets, enabling AI models to train on private data without the data ever leaving its owner's control. Early adopters include two major pharmaceutical companies and a hedge fund using the system for proprietary trading model development.</p>
+<h2>The Data Economy Value Capture</h2>
+<p>The economic thesis is compelling: as AI models become more valuable, the training data that creates them should also capture more value. Decentralized networks that enable data owners to monetize their data for AI training — while maintaining privacy and control — represent a fundamentally new economic primitive.</p>`,
+    href: '/ai-ecosystem/data-ai-convergence-blockchain-ai-infrastructure',
+  },
 ]
 
 export default MOCK_ARTICLES
