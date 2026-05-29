@@ -1,8 +1,8 @@
 import { HeroSection } from '@/components/layout/HeroSection'
 import { CategoryNavRow } from '@/components/layout/CategoryNavRow'
 import { CategorySection } from '@/components/layout/CategorySection'
+import { ProjectsSection } from '@/components/layout/ProjectsSection'
 import { Sidebar } from '@/components/layout/Sidebar'
-import { MarketSummary } from '@/components/data/MarketSummary'
 import { ArticleCard } from '@/components/article/ArticleCard'
 import {
   getAllArticles,
@@ -23,81 +23,67 @@ export default function HomePage() {
     (c) => c.slug !== 'sponsored-articles' && c.slug !== 'press-release'
   )
 
-  // Recent articles for hero right column (exclude featured)
   const recentArticles = allArticles
     .filter((a) => a.slug !== featuredArticle?.slug)
     .sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime())
 
-  // Category article counts for hero badges
-  const categoryCounts = [
-    { label: 'AI Agents',  count: allArticles.filter((a) => a.category === 'ai-agents').length + 68,        color: '#5EEAD4' },
-    { label: 'Infra',      count: allArticles.filter((a) => a.category === 'ai-infrastructure').length + 44, color: '#93C5FD' },
-    { label: 'Trading',    count: allArticles.filter((a) => a.category === 'ai-trading').length + 79,        color: '#FCD34D' },
-    { label: 'Data',       count: allArticles.filter((a) => a.category === 'ai-data').length + 36,           color: '#C4B5FD' },
+  // ── Stat boxes (colored tiles inside hero) ──
+  const statBoxes = [
+    { label: 'AI Agents',  count: allArticles.filter((a) => a.category === 'ai-agents').length + 68,        color: '#5EEAD4', bg: 'rgba(20,184,166,0.10)' },
+    { label: 'Infra',      count: allArticles.filter((a) => a.category === 'ai-infrastructure').length + 44, color: '#93C5FD', bg: 'rgba(147,197,253,0.08)' },
+    { label: 'Trading',    count: allArticles.filter((a) => a.category === 'ai-trading').length + 79,        color: '#FCD34D', bg: 'rgba(252,211,77,0.08)' },
+    { label: 'Data',       count: allArticles.filter((a) => a.category === 'ai-data').length + 36,           color: '#C4B5FD', bg: 'rgba(196,181,253,0.08)' },
   ]
 
-  // Platform stats row
+  // ── Platform stats (inside hero bottom bar) ──
   const platformStats = [
     { value: '1,847', label: 'Platforms' },
-    { value: '1,348', label: 'AI Models' },
+    { value: '1,248', label: 'AI Models' },
     { value: '40.2M', label: 'Data Points' },
     { value: '14T',   label: 'Market Cap' },
   ]
 
-  // Featured 4 articles for the 2×2 grid (non-hero)
+  // 4-col featured grid (first 4 non-hero articles)
   const gridArticles = recentArticles.slice(0, 4)
 
-  // Remaining articles after grid
-  const remainingArticles = recentArticles.slice(4)
+  // Project cards (use ai-agents articles)
+  const projectArticles = getArticlesByCategory('ai-agents')
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8">
 
-      {/* ── HERO: featured left + recent list right ── */}
+      {/* ── HERO ── */}
       {featuredArticle && (
         <HeroSection
           featured={featuredArticle}
           recentArticles={recentArticles}
-          categoryCounts={categoryCounts}
+          statBoxes={statBoxes}
+          platformStats={platformStats}
         />
       )}
 
-      {/* ── PLATFORM STATS ROW ── */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-8">
-        {platformStats.map((stat) => (
-          <div key={stat.label} className="card-cosmic p-4 text-center">
-            <div
-              className="text-2xl font-bold font-mono mb-0.5"
-              style={{ fontFamily: 'var(--font-mono)', color: 'var(--color-text-teal)' }}
-            >
-              {stat.value}
-            </div>
-            <div className="text-xs text-[var(--color-text-muted)]">{stat.label}</div>
-          </div>
-        ))}
-      </div>
-
-      {/* ── CATEGORY NAV ROW ── */}
+      {/* ── CATEGORY NAV PILLS ── */}
       <CategoryNavRow categories={mainCategories} />
 
-      {/* ── MAIN LAYOUT: content 70% + sidebar 30% ── */}
-      <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-8">
+      {/* ── MAIN 2-COL: content + sidebar ── */}
+      <div className="grid grid-cols-1 lg:grid-cols-[1fr_280px] gap-7">
 
         {/* LEFT — main content */}
         <div className="min-w-0">
 
-          {/* 2×2 Featured articles grid */}
+          {/* 4-col featured grid */}
           {gridArticles.length > 0 && (
-            <section className="mb-10">
+            <section className="mb-8">
               <div className="flex items-center justify-between mb-4">
                 <h2
-                  className="text-base font-bold text-[var(--color-text-primary)]"
+                  className="text-sm font-bold text-[var(--color-text-primary)] uppercase tracking-wide"
                   style={{ fontFamily: 'var(--font-display)' }}
                 >
                   Featured Stories
                 </h2>
               </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {/* Reference shows 4 in a row on desktop */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
                 {gridArticles.map((article) => (
                   <ArticleCard key={article.slug} article={article} variant="default" />
                 ))}
@@ -105,8 +91,8 @@ export default function HomePage() {
             </section>
           )}
 
-          {/* Market Overview */}
-          <MarketSummary />
+          {/* Projects section */}
+          <ProjectsSection articles={projectArticles} />
 
           {/* Category sections */}
           {mainCategories.map((category) => {
@@ -118,7 +104,7 @@ export default function HomePage() {
 
         </div>
 
-        {/* RIGHT — sidebar (sticky) */}
+        {/* RIGHT — sticky sidebar */}
         <div className="hidden lg:block">
           <div className="sticky top-24">
             <Sidebar trendingArticles={trendingArticles} />

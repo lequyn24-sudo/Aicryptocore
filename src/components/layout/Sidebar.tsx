@@ -1,57 +1,76 @@
 import Link from 'next/link'
 import type { Article } from '@/types/article'
-import { TrendingUp, ArrowRight, Layers, Cpu, Code2, GitBranch, Globe } from 'lucide-react'
+import { TrendingUp, TrendingDown, ArrowRight, Layers, Cpu, BarChart2, Database, GitBranch, Globe } from 'lucide-react'
 import { NAV_CATEGORIES } from '@/lib/categories'
 import { NewsletterForm } from '@/components/ui/NewsletterForm'
-import { formatDate } from '@/lib/dates'
 
 interface SidebarProps {
   trendingArticles: Article[]
 }
 
+const MARKET_PRICES = [
+  { symbol: 'BTC', name: 'Bitcoin',       price: '$98,420', change: '+2.34%', up: true },
+  { symbol: 'ETH', name: 'Ethereum',      price: '$3,841',  change: '-1.12%', up: false },
+  { symbol: 'SOL', name: 'Solana',        price: '$184.50', change: '+4.21%', up: true },
+  { symbol: 'FET', name: 'Fetch.ai',      price: '$2.84',   change: '+8.93%', up: true },
+  { symbol: 'TAO', name: 'Bittensor',     price: '$492',    change: '-2.45%', up: false },
+  { symbol: 'RENDER', name: 'Render',     price: '$11.24',  change: '+5.67%', up: true },
+]
+
 const SPACE_NAV = [
-  { label: 'Application Layer', href: '/ai-agents', icon: Layers },
-  { label: 'Infrastructure Layer', href: '/ai-infrastructure', icon: Cpu },
-  { label: 'Trading Systems', href: '/ai-trading', icon: TrendingUp },
-  { label: 'Data Protocols', href: '/ai-data', icon: Code2 },
-  { label: 'Ecosystem & L1', href: '/ai-ecosystem', icon: GitBranch },
-  { label: 'Press & Sponsored', href: '/press-release', icon: Globe },
+  { label: 'Application Layer',   href: '/ai-agents',         icon: Layers },
+  { label: 'Infrastructure Layer',href: '/ai-infrastructure', icon: Cpu },
+  { label: 'Trading Systems',     href: '/ai-trading',        icon: BarChart2 },
+  { label: 'Data Protocols',      href: '/ai-data',           icon: Database },
+  { label: 'Ecosystem & L1',      href: '/ai-ecosystem',      icon: GitBranch },
+  { label: 'Press & Sponsored',   href: '/press-release',     icon: Globe },
 ]
 
 export function Sidebar({ trendingArticles }: SidebarProps) {
   return (
-    <aside className="space-y-5">
+    <aside className="space-y-4">
 
-      {/* ── Space Navigator ── */}
+      {/* ── Market & Trending ── */}
       <div className="card-cosmic p-4">
-        <p className="text-[10px] font-bold uppercase tracking-widest text-[var(--color-text-muted)] mb-3">Space Navigator</p>
-        <ul className="space-y-0.5">
-          {SPACE_NAV.map(({ label, href, icon: Icon }) => (
-            <li key={href}>
-              <Link
-                href={href}
-                className="flex items-center gap-2.5 px-2 py-2 rounded-lg text-sm text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] hover:bg-white/[0.05] transition-colors group"
-              >
-                <Icon size={14} className="text-[var(--color-text-muted)] group-hover:text-[var(--color-text-teal)] transition-colors shrink-0" />
-                <span>{label}</span>
-                <ArrowRight size={11} className="ml-auto opacity-0 group-hover:opacity-100 transition-opacity" />
-              </Link>
+        <p className="text-[10px] font-bold uppercase tracking-widest text-[var(--color-text-muted)] mb-3">
+          Market &amp; Trending
+        </p>
+        <ul className="divide-y divide-white/[0.04]">
+          {MARKET_PRICES.map((coin) => (
+            <li key={coin.symbol} className="flex items-center justify-between py-2">
+              <div className="flex items-center gap-2">
+                <span className="text-[10px] font-bold w-12 text-[var(--color-text-primary)]">{coin.symbol}</span>
+                <span className="text-xs text-[var(--color-text-muted)]">{coin.name}</span>
+              </div>
+              <div className="flex items-center gap-2 text-right">
+                <span className="text-xs font-mono text-[var(--color-text-primary)]">{coin.price}</span>
+                <span
+                  className="flex items-center gap-0.5 text-[10px] font-medium w-14 justify-end"
+                  style={{ color: coin.up ? 'var(--color-price-up)' : 'var(--color-price-down)' }}
+                >
+                  {coin.up ? <TrendingUp size={9} /> : <TrendingDown size={9} />}
+                  {coin.change}
+                </span>
+              </div>
             </li>
           ))}
         </ul>
       </div>
 
-      {/* ── Trending Now ── */}
+      {/* ── Trending Topics ── */}
       <div className="card-cosmic p-4">
         <div className="flex items-center gap-2 mb-3">
-          <TrendingUp size={14} className="text-[var(--color-accent)]" />
+          <TrendingUp size={13} className="text-[var(--color-accent)]" />
           <p className="text-[10px] font-bold uppercase tracking-widest text-[var(--color-text-muted)]">Trending Topics</p>
         </div>
         <ol className="space-y-3">
           {trendingArticles.map((article, i) => (
             <li key={article.slug}>
-              <Link href={article.href} className="flex gap-3 group">
-                <span className="text-lg font-bold tabular-nums text-[var(--color-border-strong)] group-hover:text-[var(--color-text-teal)] transition-colors shrink-0 w-6 leading-tight">
+              <Link href={article.href} className="flex gap-2.5 group">
+                <span
+                  className="text-base font-bold tabular-nums shrink-0 leading-tight w-6"
+                  style={{ color: i < 3 ? 'var(--color-text-teal)' : 'var(--color-border-strong)' }}
+                >
                   {String(i + 1).padStart(2, '0')}
                 </span>
                 <div className="min-w-0">
@@ -68,6 +87,25 @@ export function Sidebar({ trendingArticles }: SidebarProps) {
         </ol>
       </div>
 
+      {/* ── Space Navigator ── */}
+      <div className="card-cosmic p-4">
+        <p className="text-[10px] font-bold uppercase tracking-widest text-[var(--color-text-muted)] mb-3">Space Navigator</p>
+        <ul className="space-y-0.5">
+          {SPACE_NAV.map(({ label, href, icon: Icon }) => (
+            <li key={href}>
+              <Link
+                href={href}
+                className="flex items-center gap-2.5 px-2 py-1.5 rounded-lg text-sm text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] hover:bg-white/[0.05] transition-colors group"
+              >
+                <Icon size={13} className="text-[var(--color-text-muted)] group-hover:text-[var(--color-text-teal)] shrink-0 transition-colors" />
+                <span className="text-xs">{label}</span>
+                <ArrowRight size={10} className="ml-auto opacity-0 group-hover:opacity-100 transition-opacity" />
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </div>
+
       {/* ── Categories ── */}
       <div className="card-cosmic p-4">
         <p className="text-[10px] font-bold uppercase tracking-widest text-[var(--color-text-muted)] mb-3">Categories</p>
@@ -76,19 +114,17 @@ export function Sidebar({ trendingArticles }: SidebarProps) {
             <li key={cat.slug}>
               <Link
                 href={`/${cat.slug}`}
-                className="flex items-center justify-between py-2 text-sm text-[var(--color-text-secondary)] hover:text-[var(--color-text-teal)] transition-colors group"
+                className="flex items-center justify-between py-2 text-xs text-[var(--color-text-secondary)] hover:text-[var(--color-text-teal)] transition-colors group"
               >
                 <span>{cat.label}</span>
-                <span className="text-[10px] text-[var(--color-text-muted)] group-hover:text-[var(--color-text-teal)] transition-colors">
-                  {cat.subcategories.length} topics
-                </span>
+                <span className="text-[10px] text-[var(--color-text-muted)]">{cat.subcategories.length} topics</span>
               </Link>
             </li>
           ))}
         </ul>
       </div>
 
-      {/* ── Newsletter CTA ── */}
+      {/* ── Newsletter ── */}
       <div
         className="rounded-xl p-4 border border-[var(--color-border-teal)]"
         style={{ background: 'linear-gradient(135deg, rgba(20,184,166,0.08) 0%, rgba(99,102,241,0.06) 100%)' }}
