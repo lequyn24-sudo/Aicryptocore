@@ -55,21 +55,24 @@ export function PriceTicker() {
 
   return (
     <div
-      className="bg-teal-900 border-b border-teal-800/40 h-9"
+      className="ticker-cosmic h-9"
       aria-live="polite"
       aria-label="Live crypto prices"
     >
       <div className="max-w-7xl mx-auto px-4 h-full flex items-center gap-3">
-        <span className="shrink-0 text-xs font-bold bg-amber-400 text-amber-950 px-2 py-0.5 rounded">
+        <span className="shrink-0 text-xs font-bold bg-[var(--color-accent)] text-[#0a0a0f] px-2 py-0.5 rounded">
           LIVE
         </span>
         <div className="ticker-wrap flex-1 overflow-hidden">
           <div className="ticker-track flex items-center gap-6">
             {allItems.map((coin, i) => (
               <span key={`${coin.symbol}-${i}`} className="flex items-center gap-1.5 text-xs font-mono whitespace-nowrap">
-                <span className="font-bold text-teal-200">{coin.symbol}</span>
-                <span className="text-teal-100">{formatPrice(coin.price)}</span>
-                <span className={`flex items-center gap-0.5 ${coin.change24h >= 0 ? 'text-green-400' : 'text-red-400'}`}>
+                <span className="font-bold text-[var(--color-text-secondary)]">{coin.symbol}</span>
+                <span className="text-[var(--color-text-primary)]">{formatPrice(coin.price)}</span>
+                <span
+                  className="flex items-center gap-0.5"
+                  style={{ color: coin.change24h >= 0 ? 'var(--color-price-up)' : 'var(--color-price-down)' }}
+                >
                   {coin.change24h >= 0 ? <TrendingUp size={10} /> : <TrendingDown size={10} />}
                   {Math.abs(coin.change24h).toFixed(2)}%
                 </span>

@@ -18,31 +18,30 @@ function formatPrice(price: number): string {
 
 export function MarketSummary() {
   return (
-    <section className="bg-teal-800/50 border border-teal-700/30 rounded-2xl p-6 my-10">
+    <section className="card-cosmic p-6 my-10">
       <div className="flex items-center gap-2 mb-5">
-        <BarChart3 size={18} className="text-amber-400" />
-        <h2 className="text-base font-semibold text-teal-200 uppercase tracking-wide">Market Overview</h2>
-        <span className="ml-auto text-xs text-teal-500">Updated live</span>
+        <BarChart3 size={18} className="text-[var(--color-accent)]" />
+        <h2 className="text-base font-semibold text-[var(--color-text-primary)] uppercase tracking-wide">Market Overview</h2>
+        <span className="ml-auto text-xs text-[var(--color-text-muted)]">Updated live</span>
       </div>
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
         {MARKET_DATA.map((coin) => (
           <div
             key={coin.symbol}
-            className="bg-teal-900/60 rounded-xl p-3 border border-teal-700/20 hover:border-teal-600/40 transition-colors"
+            className="bg-white/[0.03] rounded-xl p-3 border border-white/[0.06] hover:border-[var(--color-border-teal)] transition-colors"
           >
             <div className="flex items-center justify-between mb-2">
-              <span className="text-xs font-bold text-teal-200">{coin.symbol}</span>
+              <span className="text-xs font-bold text-[var(--color-text-primary)]">{coin.symbol}</span>
               <span
-                className={`flex items-center gap-0.5 text-xs font-medium ${
-                  coin.change >= 0 ? 'text-green-400' : 'text-red-400'
-                }`}
+                className="flex items-center gap-0.5 text-xs font-medium"
+                style={{ color: coin.change >= 0 ? 'var(--color-price-up)' : 'var(--color-price-down)' }}
               >
                 {coin.change >= 0 ? <TrendingUp size={10} /> : <TrendingDown size={10} />}
                 {Math.abs(coin.change).toFixed(2)}%
               </span>
             </div>
-            <div className="text-sm font-semibold text-teal-100 font-mono">{formatPrice(coin.price)}</div>
-            <div className="text-xs text-teal-500 mt-0.5">MCap: {coin.mcap}</div>
+            <div className="text-sm font-semibold text-[var(--color-text-primary)] font-mono">{formatPrice(coin.price)}</div>
+            <div className="text-xs text-[var(--color-text-muted)] mt-0.5">MCap: {coin.mcap}</div>
           </div>
         ))}
       </div>

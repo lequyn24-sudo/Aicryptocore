@@ -17,9 +17,9 @@ interface ArticleCardProps {
 export function ArticleCard({ article, variant = 'default', className = '', priority = false }: ArticleCardProps) {
   if (variant === 'compact') {
     return (
-      <article className={`flex gap-3 py-3 border-b border-teal-800/40 last:border-0 group ${className}`}>
+      <article className={`flex gap-3 py-3 border-b border-white/[0.06] last:border-0 group ${className}`}>
         <Link href={article.href} className="flex gap-3 w-full">
-          <div className="relative w-16 h-16 rounded-lg overflow-hidden shrink-0 bg-teal-800">
+          <div className="relative w-16 h-16 rounded-lg overflow-hidden shrink-0 bg-[#161b22]">
             <Image
               src={article.coverImage}
               alt={article.coverImageAlt}
@@ -29,8 +29,8 @@ export function ArticleCard({ article, variant = 'default', className = '', prio
             />
           </div>
           <div className="flex-1 min-w-0">
-            <p className="text-xs text-teal-400 mb-1">{formatDate(article.publishedAt)}</p>
-            <h3 className="text-sm font-medium text-teal-200 group-hover:text-teal-100 transition-colors line-clamp-2 leading-snug">
+            <p className="text-xs text-[var(--color-text-muted)] mb-1">{formatDate(article.publishedAt)}</p>
+            <h3 className="text-sm font-medium text-[var(--color-text-secondary)] group-hover:text-[var(--color-text-primary)] transition-colors line-clamp-2 leading-snug">
               {article.title}
             </h3>
           </div>
@@ -41,9 +41,9 @@ export function ArticleCard({ article, variant = 'default', className = '', prio
 
   if (variant === 'horizontal') {
     return (
-      <article className={`flex gap-4 group rounded-xl bg-teal-800 border border-teal-700/30 overflow-hidden transition-all duration-200 hover:border-teal-500/60 hover:shadow-[0_4px_16px_rgba(20,184,166,0.25)] ${className}`}>
+      <article className={`card-cosmic flex gap-4 group overflow-hidden ${className}`}>
         <Link href={article.href} className="flex w-full">
-          <div className="relative w-2/5 min-h-[140px] bg-teal-900 shrink-0">
+          <div className="relative w-2/5 min-h-[140px] bg-[#161b22] shrink-0">
             <Image
               src={article.coverImage}
               alt={article.coverImageAlt}
@@ -56,11 +56,11 @@ export function ArticleCard({ article, variant = 'default', className = '', prio
             <Badge variant={article.sponsored ? 'sponsored' : 'category'} className="mb-2">
               {article.sponsored ? 'Sponsored' : article.category.replace('ai-', 'AI ').replace(/-/g, ' ')}
             </Badge>
-            <h3 className="text-sm font-semibold text-teal-100 group-hover:text-teal-300 transition-colors line-clamp-2 mb-2 leading-snug">
+            <h3 className="text-sm font-semibold text-[var(--color-text-primary)] group-hover:text-[var(--color-text-teal)] transition-colors line-clamp-2 mb-2 leading-snug">
               {article.title}
             </h3>
-            <p className="text-xs text-teal-400 line-clamp-2 leading-relaxed mb-3">{article.description}</p>
-            <div className="flex items-center gap-3 text-xs text-teal-500">
+            <p className="text-xs text-[var(--color-text-secondary)] line-clamp-2 leading-relaxed mb-3">{article.description}</p>
+            <div className="flex items-center gap-3 text-xs text-[var(--color-text-muted)]">
               <span className="flex items-center gap-1">
                 <User size={11} /> {article.author.name}
               </span>
@@ -76,9 +76,9 @@ export function ArticleCard({ article, variant = 'default', className = '', prio
 
   if (variant === 'featured') {
     return (
-      <article className={`group relative rounded-2xl overflow-hidden bg-teal-900 border border-teal-700/30 ${className}`}>
+      <article className={`group relative rounded-2xl overflow-hidden bg-[#0d1117] border border-white/[0.07] ${className}`}>
         <Link href={article.href}>
-          <div className="relative w-full aspect-[16/7] bg-teal-800">
+          <div className="relative w-full aspect-[16/7] bg-[#161b22]">
             <Image
               src={article.coverImage}
               alt={article.coverImageAlt}
@@ -87,7 +87,7 @@ export function ArticleCard({ article, variant = 'default', className = '', prio
               priority={priority}
               className="object-cover transition-transform duration-500 group-hover:scale-[1.02]"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-teal-950/90 via-teal-950/30 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0f]/95 via-[#0a0a0f]/40 to-transparent" />
           </div>
           <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8">
             <div className="flex items-center gap-2 mb-3">
@@ -96,14 +96,16 @@ export function ArticleCard({ article, variant = 'default', className = '', prio
                 {article.category.replace('ai-', 'AI ').replace(/-/g, ' ')}
               </Badge>
             </div>
-            <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white leading-tight mb-3 group-hover:text-teal-200 transition-colors max-w-3xl"
-              style={{ fontFamily: 'var(--font-display)' }}>
+            <h1
+              className="text-2xl md:text-3xl lg:text-4xl font-bold text-white leading-tight mb-3 group-hover:text-[var(--color-text-teal)] transition-colors max-w-3xl"
+              style={{ fontFamily: 'var(--font-display)' }}
+            >
               {article.title}
             </h1>
-            <p className="text-teal-300 text-sm md:text-base line-clamp-2 max-w-2xl mb-4 leading-relaxed">
+            <p className="text-[var(--color-text-secondary)] text-sm md:text-base line-clamp-2 max-w-2xl mb-4 leading-relaxed">
               {article.description}
             </p>
-            <div className="flex items-center gap-4 text-sm text-teal-400">
+            <div className="flex items-center gap-4 text-sm text-[var(--color-text-muted)]">
               <span className="flex items-center gap-1.5">
                 <User size={14} /> {article.author.name}
               </span>
@@ -118,11 +120,11 @@ export function ArticleCard({ article, variant = 'default', className = '', prio
     )
   }
 
-  // Default card
+  // Default card — glassmorphism
   return (
-    <article className={`group rounded-xl bg-teal-800 border border-teal-700/30 overflow-hidden transition-all duration-200 hover:border-teal-500/60 hover:shadow-[0_4px_16px_rgba(20,184,166,0.25)] hover:-translate-y-0.5 ${className}`}>
+    <article className={`card-cosmic group overflow-hidden ${className}`}>
       <Link href={article.href}>
-        <div className="relative aspect-video bg-teal-900 overflow-hidden">
+        <div className="relative aspect-video bg-[#161b22] overflow-hidden">
           <Image
             src={article.coverImage}
             alt={article.coverImageAlt}
@@ -141,11 +143,11 @@ export function ArticleCard({ article, variant = 'default', className = '', prio
               ? 'Sponsored'
               : article.category.replace('ai-', 'AI ').replace(/-/g, ' ')}
           </Badge>
-          <h3 className="text-base font-semibold text-teal-100 group-hover:text-teal-300 transition-colors line-clamp-2 mb-2 leading-snug">
+          <h3 className="text-base font-semibold text-[var(--color-text-primary)] group-hover:text-[var(--color-text-teal)] transition-colors line-clamp-2 mb-2 leading-snug">
             {article.title}
           </h3>
-          <p className="text-sm text-teal-400 line-clamp-2 leading-relaxed mb-3">{article.description}</p>
-          <div className="flex items-center gap-3 text-xs text-teal-500">
+          <p className="text-sm text-[var(--color-text-secondary)] line-clamp-2 leading-relaxed mb-3">{article.description}</p>
+          <div className="flex items-center gap-3 text-xs text-[var(--color-text-muted)]">
             <span className="flex items-center gap-1">
               <User size={11} /> {article.author.name}
             </span>

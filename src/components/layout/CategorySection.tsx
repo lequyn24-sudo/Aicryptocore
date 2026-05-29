@@ -26,16 +26,16 @@ export function CategorySection({ category, articles }: CategorySectionProps) {
     <section className="mb-12">
       <div className="flex items-center justify-between mb-5">
         <div className="flex items-center gap-2.5">
-          <div className="p-2 rounded-lg bg-teal-800 border border-teal-700/30">
-            <Icon size={16} className="text-teal-400" />
+          <div className="p-2 rounded-lg bg-white/[0.05] border border-[var(--color-border-teal)]">
+            <Icon size={16} className="text-[var(--color-text-teal)]" />
           </div>
-          <h2 className="text-lg font-bold text-teal-100" style={{ fontFamily: 'var(--font-display)' }}>
+          <h2 className="text-lg font-bold text-[var(--color-text-primary)]" style={{ fontFamily: 'var(--font-display)' }}>
             {category.label}
           </h2>
         </div>
         <Link
           href={`/${category.slug}`}
-          className="flex items-center gap-1 text-sm text-teal-400 hover:text-teal-200 transition-colors group"
+          className="flex items-center gap-1 text-sm text-[var(--color-text-secondary)] hover:text-[var(--color-text-teal)] transition-colors group"
         >
           View all
           <ArrowRight size={14} className="transition-transform duration-150 group-hover:translate-x-0.5" />

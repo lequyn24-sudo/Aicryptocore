@@ -42,17 +42,17 @@ export default function HomePage() {
         {stats.map((stat) => (
           <div
             key={stat.label}
-            className="bg-teal-800/50 border border-teal-700/30 rounded-xl p-4 text-center"
+            className="card-cosmic p-4 text-center"
           >
-            <div className="text-2xl font-bold text-teal-400 font-mono mb-1">{stat.value}</div>
-            <div className="text-xs text-teal-500">{stat.label}</div>
+            <div className="text-2xl font-bold text-[var(--color-text-teal)] font-mono mb-1">{stat.value}</div>
+            <div className="text-xs text-[var(--color-text-muted)]">{stat.label}</div>
           </div>
         ))}
       </div>
 
       {/* Hero Featured */}
       {featuredArticle && (
-        <div className="mb-8">
+        <div className="cosmic-orbs mb-8 rounded-2xl">
           <ArticleCard article={featuredArticle} variant="featured" priority />
         </div>
       )}
@@ -61,7 +61,7 @@ export default function HomePage() {
       {topStories.length > 0 && (
         <section className="mb-12">
           <h2
-            className="text-lg font-bold text-teal-100 mb-5"
+            className="text-lg font-bold text-[var(--color-text-primary)] mb-5"
             style={{ fontFamily: 'var(--font-display)' }}
           >
             Latest Stories

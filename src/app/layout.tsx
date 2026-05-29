@@ -69,7 +69,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
         <WebSiteJsonLd />
       </head>
-      <body className="min-h-screen flex flex-col" style={{ fontFamily: 'var(--font-ui)' }}>
+      <body
+        className="min-h-screen flex flex-col bg-[#0a0a0f]"
+        style={{ background: 'var(--gradient-page)', backgroundAttachment: 'fixed', fontFamily: 'var(--font-ui)' }}
+      >
         <a
           href="#main-content"
           className="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:p-4 focus:bg-teal-500 focus:text-teal-900 focus:rounded"
