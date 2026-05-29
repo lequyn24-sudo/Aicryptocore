@@ -17,9 +17,9 @@ interface ArticleCardProps {
 export function ArticleCard({ article, variant = 'default', className = '', priority = false }: ArticleCardProps) {
   if (variant === 'compact') {
     return (
-      <article className={`flex gap-3 py-3 border-b border-white/[0.06] last:border-0 group ${className}`}>
+      <article className={`flex gap-3 py-3 border-b border-glass last:border-0 group ${className}`}>
         <Link href={article.href} className="flex gap-3 w-full">
-          <div className="relative w-16 h-16 rounded-lg overflow-hidden shrink-0 bg-[#161b22]">
+          <div className="relative w-16 h-16 rounded-lg overflow-hidden shrink-0 bg-surface-elevated">
             <Image
               src={article.coverImage}
               alt={article.coverImageAlt}
@@ -43,7 +43,7 @@ export function ArticleCard({ article, variant = 'default', className = '', prio
     return (
       <article className={`card-cosmic flex gap-4 group overflow-hidden ${className}`}>
         <Link href={article.href} className="flex w-full">
-          <div className="relative w-2/5 min-h-[140px] bg-[#161b22] shrink-0">
+          <div className="relative w-2/5 min-h-[140px] bg-surface-elevated shrink-0">
             <Image
               src={article.coverImage}
               alt={article.coverImageAlt}
@@ -61,12 +61,8 @@ export function ArticleCard({ article, variant = 'default', className = '', prio
             </h3>
             <p className="text-xs text-[var(--color-text-secondary)] line-clamp-2 leading-relaxed mb-3">{article.description}</p>
             <div className="flex items-center gap-3 text-xs text-[var(--color-text-muted)]">
-              <span className="flex items-center gap-1">
-                <User size={11} /> {article.author.name}
-              </span>
-              <span className="flex items-center gap-1">
-                <Clock size={11} /> {formatReadingTime(article.readingTime)}
-              </span>
+              <span className="flex items-center gap-1"><User size={11} /> {article.author.name}</span>
+              <span className="flex items-center gap-1"><Clock size={11} /> {formatReadingTime(article.readingTime)}</span>
             </div>
           </div>
         </Link>
@@ -76,9 +72,9 @@ export function ArticleCard({ article, variant = 'default', className = '', prio
 
   if (variant === 'featured') {
     return (
-      <article className={`group relative rounded-2xl overflow-hidden bg-[#0d1117] border border-white/[0.07] ${className}`}>
+      <article className={`group relative rounded-2xl overflow-hidden bg-surface border border-glass ${className}`}>
         <Link href={article.href}>
-          <div className="relative w-full aspect-[16/7] bg-[#161b22]">
+          <div className="relative w-full aspect-[16/7] bg-surface-elevated">
             <Image
               src={article.coverImage}
               alt={article.coverImageAlt}
@@ -87,7 +83,7 @@ export function ArticleCard({ article, variant = 'default', className = '', prio
               priority={priority}
               className="object-cover transition-transform duration-500 group-hover:scale-[1.02]"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0f]/95 via-[#0a0a0f]/40 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
           </div>
           <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8">
             <div className="flex items-center gap-2 mb-3">
@@ -97,22 +93,18 @@ export function ArticleCard({ article, variant = 'default', className = '', prio
               </Badge>
             </div>
             <h1
-              className="text-2xl md:text-3xl lg:text-4xl font-bold text-white leading-tight mb-3 group-hover:text-[var(--color-text-teal)] transition-colors max-w-3xl"
+              className="text-2xl md:text-3xl lg:text-4xl font-bold text-white leading-tight mb-3 group-hover:text-[var(--color-text-teal)] transition-colors max-w-3xl drop-shadow-lg"
               style={{ fontFamily: 'var(--font-display)' }}
             >
               {article.title}
             </h1>
-            <p className="text-[var(--color-text-secondary)] text-sm md:text-base line-clamp-2 max-w-2xl mb-4 leading-relaxed">
+            <p className="text-white/80 text-sm md:text-base line-clamp-2 max-w-2xl mb-4 leading-relaxed drop-shadow">
               {article.description}
             </p>
-            <div className="flex items-center gap-4 text-sm text-[var(--color-text-muted)]">
-              <span className="flex items-center gap-1.5">
-                <User size={14} /> {article.author.name}
-              </span>
+            <div className="flex items-center gap-4 text-sm text-white/70">
+              <span className="flex items-center gap-1.5"><User size={14} /> {article.author.name}</span>
               <span>{formatDate(article.publishedAt)}</span>
-              <span className="flex items-center gap-1">
-                <Clock size={13} /> {formatReadingTime(article.readingTime)}
-              </span>
+              <span className="flex items-center gap-1"><Clock size={13} /> {formatReadingTime(article.readingTime)}</span>
             </div>
           </div>
         </Link>
@@ -120,11 +112,11 @@ export function ArticleCard({ article, variant = 'default', className = '', prio
     )
   }
 
-  // Default card — glassmorphism
+  // Default card
   return (
     <article className={`card-cosmic group overflow-hidden ${className}`}>
       <Link href={article.href}>
-        <div className="relative aspect-[16/9] bg-[#161b22] overflow-hidden">
+        <div className="relative aspect-[16/9] bg-surface-elevated overflow-hidden">
           <Image
             src={article.coverImage}
             alt={article.coverImageAlt}
@@ -148,9 +140,7 @@ export function ArticleCard({ article, variant = 'default', className = '', prio
           </h3>
           <p className="text-xs text-[var(--color-text-secondary)] line-clamp-2 leading-relaxed mb-2">{article.description}</p>
           <div className="flex items-center gap-2 text-xs text-[var(--color-text-secondary)]">
-            <span className="flex items-center gap-1">
-              <User size={10} /> {article.author.name}
-            </span>
+            <span className="flex items-center gap-1"><User size={10} /> {article.author.name}</span>
             <span className="text-[var(--color-text-muted)]">{formatDate(article.publishedAt)}</span>
             <span className="flex items-center gap-1 ml-auto text-[var(--color-text-muted)]">
               <Clock size={10} /> {formatReadingTime(article.readingTime)}

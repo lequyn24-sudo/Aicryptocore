@@ -67,7 +67,7 @@ export function Header() {
 
                 {/* Mega menu dropdown */}
                 <div className="absolute top-full left-0 pt-2 opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-opacity duration-200">
-                  <div className="bg-[#0d1117] border border-white/[0.08] rounded-xl shadow-[0_8px_32px_rgba(0,0,0,0.6)] p-3 min-w-[200px] backdrop-blur-md">
+                  <div className="bg-surface border border-glass rounded-xl shadow-[var(--shadow-lg)] p-3 min-w-[200px] backdrop-blur-md">
                     {cat.subcategories.map((sub) => (
                       <Link
                         key={sub.slug}
@@ -107,7 +107,7 @@ export function Header() {
       >
         <div className="absolute inset-0 bg-black/50" onClick={() => setMobileOpen(false)} />
         <nav
-          className={`absolute left-0 top-16 bottom-0 w-80 bg-[#0d1117] border-r border-white/[0.07] overflow-y-auto transition-transform duration-300 ${
+          className={`absolute left-0 top-16 bottom-0 w-80 bg-surface border-r border-glass overflow-y-auto transition-transform duration-300 ${
             mobileOpen ? 'translate-x-0' : '-translate-x-full'
           }`}
         >

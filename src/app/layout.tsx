@@ -70,8 +70,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <WebSiteJsonLd />
       </head>
       <body
-        className="min-h-screen flex flex-col bg-[#0a0a0f]"
-        style={{ background: 'var(--gradient-page)', backgroundAttachment: 'fixed', fontFamily: 'var(--font-ui)' }}
+        className="min-h-screen flex flex-col"
+        style={{ background: 'var(--gradient-page)', backgroundAttachment: 'fixed', fontFamily: 'var(--font-ui)', color: 'var(--color-text-primary)' }}
       >
         <a
           href="#main-content"

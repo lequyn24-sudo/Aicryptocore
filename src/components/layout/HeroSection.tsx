@@ -22,7 +22,7 @@ export function HeroSection({ featured, recentArticles, statBoxes }: HeroSection
     <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-5 mb-6">
 
       {/* ── LEFT: Brand hero card ── */}
-      <div className="cosmic-orbs relative rounded-2xl overflow-hidden min-h-[440px] flex flex-col bg-[#0d1117] border border-white/[0.07]">
+      <div className="cosmic-orbs relative rounded-2xl overflow-hidden min-h-[440px] flex flex-col bg-surface border border-glass">
         {/* Background image – pushed right, faded */}
         <div className="absolute inset-0">
           <Image
@@ -85,8 +85,7 @@ export function HeroSection({ featured, recentArticles, statBoxes }: HeroSection
           <div className="flex items-center gap-4 mb-auto">
             <Link
               href={featured.href}
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold transition-all duration-200 hover:gap-3 hover:brightness-110"
-              style={{ background: 'var(--color-accent)', color: '#0a0a0f' }}
+              className="btn-amber"
             >
               Get Started <ArrowRight size={14} />
             </Link>
@@ -117,10 +116,10 @@ export function HeroSection({ featured, recentArticles, statBoxes }: HeroSection
             <Link
               key={article.slug}
               href={article.href}
-              className="group flex gap-3 p-3 rounded-xl bg-white/[0.03] border border-white/[0.06] hover:border-[var(--color-border-teal)] hover:bg-white/[0.05] transition-all duration-200"
+              className="group flex gap-3 p-3 rounded-xl bg-surface border border-glass hover:border-[var(--color-border-teal)] transition-all duration-200"
             >
               {/* Thumbnail */}
-              <div className="relative w-[66px] h-[50px] rounded-lg overflow-hidden shrink-0 bg-[#161b22]">
+              <div className="relative w-[66px] h-[50px] rounded-lg overflow-hidden shrink-0 bg-surface-elevated">
                 <Image
                   src={article.coverImage}
                   alt={article.coverImageAlt}
