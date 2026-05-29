@@ -72,7 +72,7 @@ interface HeroSectionProps {
 
 export function HeroSection({ featured }: HeroSectionProps) {
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-[30%_1fr_22%] gap-4 mb-6">
+    <div className="grid grid-cols-1 lg:grid-cols-[30%_1fr_22%] gap-4 mb-6 items-stretch">
 
       {/* ════ LEFT: Featured Insight ════ */}
       <div className="relative overflow-hidden rounded-2xl aspect-[4/5] lg:min-h-[440px]">
@@ -140,7 +140,7 @@ export function HeroSection({ featured }: HeroSectionProps) {
       </div>
 
       {/* ════ CENTER: Signal Map ════ */}
-      <div className="rounded-2xl border border-glass overflow-hidden bg-surface h-auto">
+      <div className="rounded-2xl border border-glass overflow-hidden bg-surface flex flex-col">
         {/* Header */}
         <div className="flex items-center justify-between px-4 py-2.5 shrink-0"
           style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
@@ -158,7 +158,7 @@ export function HeroSection({ featured }: HeroSectionProps) {
         </div>
 
         {/* Signal cards — subtle dividers */}
-        <div className="grid grid-cols-5" style={{ borderTop: 'none' }}>
+        <div className="grid grid-cols-5 flex-1" style={{ borderTop: 'none' }}>
           {SIGNALS.map((sig, idx) => {
             const st = STATUS[sig.status]
             const data = SPARKLINES[sig.key as keyof typeof SPARKLINES]
@@ -215,7 +215,8 @@ export function HeroSection({ featured }: HeroSectionProps) {
           AI Stack Navigator
         </p>
 
-        <ul className="flex-1 space-y-1">
+        <ul className="flex-1 space-y-1 overflow-y-auto max-h-[300px] scrollbar-thin pr-0.5"
+          style={{ scrollbarWidth: 'thin', scrollbarColor: 'rgba(255,255,255,0.10) transparent' }}>
           {STACK_LAYERS.map((layer) => (
             <li key={layer.label}>
               <Link href={layer.href}
