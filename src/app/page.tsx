@@ -68,7 +68,7 @@ export default function HomePage() {
             >
               {stat.value}
             </div>
-            <div className="text-[10px] text-[var(--color-text-muted)] uppercase tracking-wide">{stat.label}</div>
+            <div className="text-xs text-[var(--color-text-secondary)] mt-0.5">{stat.label}</div>
           </div>
         ))}
       </div>
@@ -86,7 +86,7 @@ export default function HomePage() {
           {gridArticles.length > 0 && (
             <section className="mb-8">
               <h2
-                className="text-xs font-bold uppercase tracking-widest text-[var(--color-text-muted)] mb-4"
+                className="text-sm font-semibold text-[var(--color-text-secondary)] mb-4"
               >
                 Featured Stories
               </h2>

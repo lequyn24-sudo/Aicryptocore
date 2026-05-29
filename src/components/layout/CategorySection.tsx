@@ -32,7 +32,7 @@ export function CategorySection({ category, articles, layout = 'grid' }: Categor
           >
             {category.label}
           </h2>
-          <span className="text-[10px] text-[var(--color-text-muted)] px-2 py-0.5 rounded-full bg-white/[0.05]">
+          <span className="text-xs text-[var(--color-text-secondary)] px-2 py-0.5 rounded-full bg-white/[0.05]">
             {articles.length} articles
           </span>
         </div>

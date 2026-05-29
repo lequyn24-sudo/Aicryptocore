@@ -32,7 +32,7 @@ export function Sidebar({ trendingArticles }: SidebarProps) {
 
       {/* ── Market & Trending ── */}
       <div className="card-cosmic p-4">
-        <p className="text-[10px] font-bold uppercase tracking-widest text-[var(--color-text-muted)] mb-3">
+        <p className="text-xs font-semibold uppercase tracking-widest text-[var(--color-text-secondary)] mb-3">
           Market &amp; Trending
         </p>
         <ul className="divide-y divide-white/[0.04]">
@@ -40,12 +40,12 @@ export function Sidebar({ trendingArticles }: SidebarProps) {
             <li key={coin.symbol} className="flex items-center justify-between py-2">
               <div className="flex items-center gap-2">
                 <span className="text-[10px] font-bold w-12 text-[var(--color-text-primary)]">{coin.symbol}</span>
-                <span className="text-xs text-[var(--color-text-muted)]">{coin.name}</span>
+                <span className="text-xs text-[var(--color-text-secondary)]">{coin.name}</span>
               </div>
               <div className="flex items-center gap-2 text-right">
                 <span className="text-xs font-mono text-[var(--color-text-primary)]">{coin.price}</span>
                 <span
-                  className="flex items-center gap-0.5 text-[10px] font-medium w-14 justify-end"
+                  className="flex items-center gap-0.5 text-xs font-medium w-16 justify-end"
                   style={{ color: coin.up ? 'var(--color-price-up)' : 'var(--color-price-down)' }}
                 >
                   {coin.up ? <TrendingUp size={9} /> : <TrendingDown size={9} />}
@@ -61,7 +61,7 @@ export function Sidebar({ trendingArticles }: SidebarProps) {
       <div className="card-cosmic p-4">
         <div className="flex items-center gap-2 mb-3">
           <TrendingUp size={13} className="text-[var(--color-accent)]" />
-          <p className="text-[10px] font-bold uppercase tracking-widest text-[var(--color-text-muted)]">Trending Topics</p>
+          <p className="text-xs font-semibold uppercase tracking-widest text-[var(--color-text-secondary)]">Trending Topics</p>
         </div>
         <ol className="space-y-3">
           {trendingArticles.map((article, i) => (
@@ -69,7 +69,7 @@ export function Sidebar({ trendingArticles }: SidebarProps) {
               <Link href={article.href} className="flex gap-2.5 group">
                 <span
                   className="text-base font-bold tabular-nums shrink-0 leading-tight w-6"
-                  style={{ color: i < 3 ? 'var(--color-text-teal)' : 'var(--color-border-strong)' }}
+                  style={{ color: i < 3 ? 'var(--color-text-teal)' : 'var(--color-text-muted)' }}
                 >
                   {String(i + 1).padStart(2, '0')}
                 </span>
@@ -77,7 +77,7 @@ export function Sidebar({ trendingArticles }: SidebarProps) {
                   <p className="text-xs font-medium text-[var(--color-text-secondary)] group-hover:text-[var(--color-text-primary)] transition-colors line-clamp-2 leading-snug">
                     {article.title}
                   </p>
-                  <p className="text-[10px] text-[var(--color-text-muted)] mt-0.5">
+                  <p className="text-xs text-[var(--color-text-muted)] mt-0.5">
                     {article.category.replace('ai-', 'AI ').replace(/-/g, ' ')}
                   </p>
                 </div>
@@ -89,7 +89,7 @@ export function Sidebar({ trendingArticles }: SidebarProps) {
 
       {/* ── Space Navigator ── */}
       <div className="card-cosmic p-4">
-        <p className="text-[10px] font-bold uppercase tracking-widest text-[var(--color-text-muted)] mb-3">Space Navigator</p>
+        <p className="text-xs font-semibold uppercase tracking-widest text-[var(--color-text-secondary)] mb-3">Space Navigator</p>
         <ul className="space-y-0.5">
           {SPACE_NAV.map(({ label, href, icon: Icon }) => (
             <li key={href}>
@@ -108,7 +108,7 @@ export function Sidebar({ trendingArticles }: SidebarProps) {
 
       {/* ── Categories ── */}
       <div className="card-cosmic p-4">
-        <p className="text-[10px] font-bold uppercase tracking-widest text-[var(--color-text-muted)] mb-3">Categories</p>
+        <p className="text-xs font-semibold uppercase tracking-widest text-[var(--color-text-secondary)] mb-3">Categories</p>
         <ul className="divide-y divide-white/[0.04]">
           {NAV_CATEGORIES.map((cat) => (
             <li key={cat.slug}>
@@ -117,7 +117,7 @@ export function Sidebar({ trendingArticles }: SidebarProps) {
                 className="flex items-center justify-between py-2 text-xs text-[var(--color-text-secondary)] hover:text-[var(--color-text-teal)] transition-colors group"
               >
                 <span>{cat.label}</span>
-                <span className="text-[10px] text-[var(--color-text-muted)]">{cat.subcategories.length} topics</span>
+                <span className="text-xs text-[var(--color-text-muted)]">{cat.subcategories.length} topics</span>
               </Link>
             </li>
           ))}

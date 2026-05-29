@@ -66,8 +66,8 @@ export function ProjectsSection({ articles }: ProjectsSectionProps) {
                 <div className="w-5 h-5 rounded-full bg-[rgba(20,184,166,0.2)] border border-[var(--color-border-teal)] flex items-center justify-center text-[9px] font-bold text-[var(--color-text-teal)] shrink-0">
                   {article.author.name.charAt(0)}
                 </div>
-                <span className="text-[10px] text-[var(--color-text-muted)] truncate">{article.author.name}</span>
-                <span className="text-[10px] text-[var(--color-text-muted)] ml-auto">{formatDate(article.publishedAt)}</span>
+                <span className="text-xs text-[var(--color-text-secondary)] truncate">{article.author.name}</span>
+                <span className="text-xs text-[var(--color-text-muted)] ml-auto">{formatDate(article.publishedAt)}</span>
               </div>
             </div>
           </Link>

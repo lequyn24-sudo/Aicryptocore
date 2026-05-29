@@ -147,12 +147,12 @@ export function ArticleCard({ article, variant = 'default', className = '', prio
             {article.title}
           </h3>
           <p className="text-xs text-[var(--color-text-secondary)] line-clamp-2 leading-relaxed mb-2">{article.description}</p>
-          <div className="flex items-center gap-2 text-[10px] text-[var(--color-text-muted)]">
+          <div className="flex items-center gap-2 text-xs text-[var(--color-text-secondary)]">
             <span className="flex items-center gap-1">
               <User size={10} /> {article.author.name}
             </span>
-            <span>{formatDate(article.publishedAt)}</span>
-            <span className="flex items-center gap-1 ml-auto">
+            <span className="text-[var(--color-text-muted)]">{formatDate(article.publishedAt)}</span>
+            <span className="flex items-center gap-1 ml-auto text-[var(--color-text-muted)]">
               <Clock size={10} /> {formatReadingTime(article.readingTime)}
             </span>
           </div>

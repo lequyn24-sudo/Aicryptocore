@@ -69,7 +69,7 @@ export function HeroSection({ featured, recentArticles, statBoxes }: HeroSection
                 >
                   {s.count}
                 </div>
-                <div className="text-[9px] uppercase tracking-wide text-[var(--color-text-muted)] leading-tight">
+                <div className="text-[11px] uppercase tracking-wide text-[var(--color-text-secondary)] leading-tight">
                   {s.label}
                 </div>
               </div>
@@ -90,7 +90,7 @@ export function HeroSection({ featured, recentArticles, statBoxes }: HeroSection
             >
               Get Started <ArrowRight size={14} />
             </Link>
-            <div className="flex items-center gap-3 text-xs text-[var(--color-text-muted)]">
+            <div className="flex items-center gap-3 text-xs text-[var(--color-text-secondary)]">
               <span className="flex items-center gap-1"><User size={11} /> {featured.author.name}</span>
               <span className="flex items-center gap-1"><Clock size={11} /> {formatReadingTime(featured.readingTime)}</span>
             </div>
@@ -137,7 +137,7 @@ export function HeroSection({ featured, recentArticles, statBoxes }: HeroSection
                 <h3 className="text-xs font-medium text-[var(--color-text-secondary)] group-hover:text-[var(--color-text-primary)] leading-snug line-clamp-2 transition-colors">
                   {article.title}
                 </h3>
-                <p className="text-[10px] text-[var(--color-text-muted)] mt-0.5">
+                <p className="text-xs text-[var(--color-text-muted)] mt-0.5">
                   {formatDate(article.publishedAt)}
                 </p>
               </div>
