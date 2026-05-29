@@ -140,7 +140,7 @@ export function HeroSection({ featured }: HeroSectionProps) {
       </div>
 
       {/* ════ CENTER: Signal Map ════ */}
-      <div className="rounded-2xl border border-glass overflow-hidden bg-surface flex flex-col">
+      <div className="rounded-2xl border border-glass overflow-hidden bg-surface flex flex-col justify-between">
         {/* Header */}
         <div className="flex items-center justify-between px-4 py-2.5 shrink-0"
           style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
@@ -158,7 +158,7 @@ export function HeroSection({ featured }: HeroSectionProps) {
         </div>
 
         {/* Signal cards — subtle dividers */}
-        <div className="grid grid-cols-5 flex-1" style={{ borderTop: 'none' }}>
+        <div className="grid grid-cols-5" style={{ borderTop: 'none' }}>
           {SIGNALS.map((sig, idx) => {
             const st = STATUS[sig.status]
             const data = SPARKLINES[sig.key as keyof typeof SPARKLINES]
