@@ -75,7 +75,7 @@ export function HeroSection({ featured }: HeroSectionProps) {
     <div className="grid grid-cols-1 lg:grid-cols-[30%_1fr_22%] gap-4 mb-6 items-stretch">
 
       {/* ════ LEFT: Featured Insight ════ */}
-      <div className="relative overflow-hidden rounded-2xl aspect-[4/5] lg:min-h-[440px]">
+      <div className="relative overflow-hidden rounded-2xl">
 
         {/* Image — absolute fill toàn card */}
         <Image
@@ -140,7 +140,7 @@ export function HeroSection({ featured }: HeroSectionProps) {
       </div>
 
       {/* ════ CENTER: Signal Map ════ */}
-      <div className="rounded-2xl border border-glass overflow-hidden bg-surface h-fit self-start w-full">
+      <div className="rounded-2xl border border-glass overflow-hidden bg-surface flex flex-col justify-between">
         {/* Header */}
         <div className="flex items-center justify-between px-4 py-2.5 shrink-0"
           style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
@@ -210,7 +210,7 @@ export function HeroSection({ featured }: HeroSectionProps) {
       </div>
 
       {/* ════ RIGHT: AI Stack Navigator ════ */}
-      <div className="rounded-2xl border border-glass bg-surface p-5 flex flex-col">
+      <div className="rounded-2xl border border-glass bg-surface p-5 flex flex-col overflow-hidden">
         <p className="text-xs font-bold uppercase tracking-widest text-[var(--color-text-primary)] mb-4"
           style={{ fontFamily: 'var(--font-display)' }}>
           AI Stack Navigator
