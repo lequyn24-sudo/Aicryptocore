@@ -2,7 +2,6 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { ArrowRight, Clock, User, Zap } from 'lucide-react'
 import type { Article } from '@/types/article'
-import { Badge } from '@/components/ui/Badge'
 import { formatDate, formatReadingTime } from '@/lib/dates'
 
 interface StatBox {
@@ -12,25 +11,19 @@ interface StatBox {
   bg: string
 }
 
-interface PlatformStat {
-  value: string
-  label: string
-}
-
 interface HeroSectionProps {
   featured: Article
   recentArticles: Article[]
   statBoxes: StatBox[]
-  platformStats: PlatformStat[]
 }
 
-export function HeroSection({ featured, recentArticles, statBoxes, platformStats }: HeroSectionProps) {
+export function HeroSection({ featured, recentArticles, statBoxes }: HeroSectionProps) {
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-5 mb-6">
+    <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-5 mb-6">
 
       {/* ── LEFT: Brand hero card ── */}
-      <div className="cosmic-orbs relative rounded-2xl overflow-hidden min-h-[460px] flex flex-col bg-[#0d1117] border border-white/[0.07]">
-        {/* Background image with strong gradient */}
+      <div className="cosmic-orbs relative rounded-2xl overflow-hidden min-h-[440px] flex flex-col bg-[#0d1117] border border-white/[0.07]">
+        {/* Background image – pushed right, faded */}
         <div className="absolute inset-0">
           <Image
             src={featured.coverImage}
@@ -38,75 +31,69 @@ export function HeroSection({ featured, recentArticles, statBoxes, platformStats
             fill
             sizes="(max-width: 1024px) 100vw, 65vw"
             priority
-            className="object-cover opacity-40"
+            className="object-cover object-center opacity-30"
           />
-          {/* Double gradient: right→transparent for image fade + bottom→dark for text */}
-          <div className="absolute inset-0 bg-gradient-to-r from-[#0d1117] via-[#0d1117]/80 to-transparent" />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0f] via-transparent to-transparent" />
+          {/* Strong left-side gradient so text is always readable */}
+          <div className="absolute inset-0 bg-gradient-to-r from-[#0d1117] via-[#0d1117]/90 to-[#0d1117]/30" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0f]/80 via-transparent to-transparent" />
         </div>
 
         {/* Content */}
-        <div className="relative z-10 flex flex-col flex-1 p-6 md:p-8">
-          {/* Category badge */}
-          <div className="mb-4">
-            <Badge variant="new">
-              <Zap size={10} className="mr-1" />
-              Featured
-            </Badge>
+        <div className="relative z-10 flex flex-col flex-1 p-7 md:p-9">
+          {/* Top badge */}
+          <div className="mb-5">
+            <span className="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-full badge-teal">
+              <Zap size={9} /> Featured
+            </span>
           </div>
 
           {/* Title */}
           <h1
-            className="text-2xl md:text-[28px] font-bold text-white leading-tight mb-3 max-w-lg"
+            className="text-2xl md:text-[28px] lg:text-3xl font-bold text-white leading-tight mb-5 max-w-[520px]"
             style={{ fontFamily: 'var(--font-display)' }}
           >
             {featured.title}
           </h1>
 
+          {/* ── Stat boxes: immediately after title (matches reference) ── */}
+          <div className="flex gap-2.5 mb-5 flex-wrap">
+            {statBoxes.map((s) => (
+              <div
+                key={s.label}
+                className="rounded-xl px-4 py-2.5 border text-center min-w-[72px]"
+                style={{ background: s.bg, borderColor: s.color + '35' }}
+              >
+                <div
+                  className="text-2xl font-bold font-mono leading-none mb-0.5"
+                  style={{ color: s.color, fontFamily: 'var(--font-mono)' }}
+                >
+                  {s.count}
+                </div>
+                <div className="text-[9px] uppercase tracking-wide text-[var(--color-text-muted)] leading-tight">
+                  {s.label}
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Description */}
           <p className="text-sm text-[var(--color-text-secondary)] line-clamp-2 mb-6 max-w-md leading-relaxed">
             {featured.description}
           </p>
 
-          {/* ── Stat boxes (78/72/64/81 style) ── */}
-          <div className="grid grid-cols-4 gap-2 mb-6">
-            {statBoxes.map((s) => (
-              <div
-                key={s.label}
-                className="rounded-xl p-3 border text-center"
-                style={{ background: s.bg, borderColor: s.color + '30' }}
-              >
-                <div className="text-xl font-bold font-mono leading-none mb-1" style={{ color: s.color }}>
-                  {s.count}
-                </div>
-                <div className="text-[10px] text-[var(--color-text-muted)] leading-tight">{s.label}</div>
-              </div>
-            ))}
-          </div>
-
-          {/* CTA button */}
-          <div className="mb-auto">
+          {/* CTA */}
+          <div className="flex items-center gap-4 mb-auto">
             <Link
               href={featured.href}
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold transition-all duration-200 hover:gap-3"
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold transition-all duration-200 hover:gap-3 hover:brightness-110"
               style={{ background: 'var(--color-accent)', color: '#0a0a0f' }}
             >
-              Read Article <ArrowRight size={15} />
+              Get Started <ArrowRight size={14} />
             </Link>
-          </div>
-
-          {/* ── Platform stats row (1,847 / 1,248 / 40.2M / 14T) ── */}
-          <div className="mt-6 pt-5 border-t border-white/[0.07] grid grid-cols-4 gap-2">
-            {platformStats.map((s) => (
-              <div key={s.label} className="text-center">
-                <div
-                  className="text-base font-bold font-mono text-[var(--color-text-primary)] leading-none mb-0.5"
-                  style={{ fontFamily: 'var(--font-mono)' }}
-                >
-                  {s.value}
-                </div>
-                <div className="text-[10px] text-[var(--color-text-muted)]">{s.label}</div>
-              </div>
-            ))}
+            <div className="flex items-center gap-3 text-xs text-[var(--color-text-muted)]">
+              <span className="flex items-center gap-1"><User size={11} /> {featured.author.name}</span>
+              <span className="flex items-center gap-1"><Clock size={11} /> {formatReadingTime(featured.readingTime)}</span>
+            </div>
           </div>
         </div>
       </div>
@@ -114,7 +101,9 @@ export function HeroSection({ featured, recentArticles, statBoxes, platformStats
       {/* ── RIGHT: Recent articles stacked ── */}
       <div className="flex flex-col gap-0">
         <div className="flex items-center justify-between px-1 mb-3">
-          <span className="text-[10px] font-bold uppercase tracking-widest text-[var(--color-text-muted)]">Latest Articles</span>
+          <span className="text-[10px] font-bold uppercase tracking-widest text-[var(--color-text-muted)]">
+            Latest Articles
+          </span>
           <Link
             href="/search"
             className="text-[10px] text-[var(--color-text-teal)] hover:text-[var(--color-accent)] transition-colors flex items-center gap-1"
@@ -131,16 +120,15 @@ export function HeroSection({ featured, recentArticles, statBoxes, platformStats
               className="group flex gap-3 p-3 rounded-xl bg-white/[0.03] border border-white/[0.06] hover:border-[var(--color-border-teal)] hover:bg-white/[0.05] transition-all duration-200"
             >
               {/* Thumbnail */}
-              <div className="relative w-[68px] h-[52px] rounded-lg overflow-hidden shrink-0 bg-[#161b22]">
+              <div className="relative w-[66px] h-[50px] rounded-lg overflow-hidden shrink-0 bg-[#161b22]">
                 <Image
                   src={article.coverImage}
                   alt={article.coverImageAlt}
                   fill
-                  sizes="68px"
+                  sizes="66px"
                   className="object-cover group-hover:scale-105 transition-transform duration-300"
                 />
               </div>
-
               {/* Text */}
               <div className="flex-1 min-w-0">
                 <span className="badge-teal text-[9px] font-medium px-1.5 py-0.5 rounded-full inline-block mb-1">
@@ -157,7 +145,6 @@ export function HeroSection({ featured, recentArticles, statBoxes, platformStats
           ))}
         </div>
       </div>
-
     </div>
   )
 }
