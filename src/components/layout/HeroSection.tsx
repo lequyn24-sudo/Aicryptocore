@@ -72,7 +72,7 @@ interface HeroSectionProps {
 
 export function HeroSection({ featured }: HeroSectionProps) {
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-[300px_1fr_260px] gap-4 mb-6">
+    <div className="grid grid-cols-1 lg:grid-cols-[380px_1fr_250px] gap-4 mb-6">
 
       {/* ════ LEFT: Featured Insight ════ */}
       <div className="relative rounded-2xl overflow-hidden min-h-[420px] flex flex-col justify-between p-6"
@@ -145,7 +145,8 @@ export function HeroSection({ featured }: HeroSectionProps) {
       {/* ════ CENTER: Signal Map ════ */}
       <div className="rounded-2xl border border-glass overflow-hidden bg-surface flex flex-col">
         {/* Header */}
-        <div className="flex items-center justify-between px-4 py-3 border-b border-glass shrink-0">
+        <div className="flex items-center justify-between px-4 py-2.5 shrink-0"
+          style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
           <div className="flex items-center gap-2">
             <span className="text-xs font-bold uppercase tracking-wide text-[var(--color-text-primary)]"
               style={{ fontFamily: 'var(--font-display)' }}>
@@ -159,28 +160,29 @@ export function HeroSection({ featured }: HeroSectionProps) {
           </div>
         </div>
 
-        {/* Signal cards */}
-        <div className="grid grid-cols-5 divide-x divide-glass flex-1">
-          {SIGNALS.map((sig) => {
+        {/* Signal cards — subtle dividers */}
+        <div className="grid grid-cols-5 flex-1" style={{ borderTop: 'none' }}>
+          {SIGNALS.map((sig, idx) => {
             const st = STATUS[sig.status]
             const data = SPARKLINES[sig.key as keyof typeof SPARKLINES]
             return (
-              <div key={sig.key} className="p-3 flex flex-col gap-2">
+              <div key={sig.key} className="p-2.5 flex flex-col gap-1.5"
+                style={{ borderRight: idx < 4 ? '1px solid rgba(255,255,255,0.04)' : 'none' }}>
                 {/* Icon */}
-                <div className="w-9 h-9 rounded-xl flex items-center justify-center text-base shrink-0"
+                <div className="w-7 h-7 rounded-lg flex items-center justify-center text-sm shrink-0"
                   style={{ background: sig.iconBg }}>
                   {sig.icon}
                 </div>
-                <p className="text-[10px] text-[var(--color-text-secondary)] leading-tight">{sig.label}</p>
-                <span className="text-2xl font-bold text-[var(--color-text-primary)]"
+                <p className="text-[9px] text-[var(--color-text-secondary)] leading-tight">{sig.label}</p>
+                <span className="text-xl font-bold text-[var(--color-text-primary)]"
                   style={{ fontFamily: 'var(--font-mono)' }}>
                   {sig.value}
                 </span>
-                <div className="flex items-center gap-0.5 text-[11px] font-semibold text-[#22c55e]">
-                  <TrendingUp size={10} /> +{sig.change}%
+                <div className="flex items-center gap-0.5 text-[10px] font-semibold text-[#22c55e]">
+                  <TrendingUp size={9} /> +{sig.change}%
                 </div>
                 <Sparkline values={data} color={sig.color} fillColor={sig.fill} />
-                <span className="inline-block text-[10px] font-semibold px-2 py-0.5 rounded-full"
+                <span className="inline-block text-[9px] font-semibold px-1.5 py-0.5 rounded-full"
                   style={{ background: st.bg, color: st.text }}>
                   {st.label}
                 </span>
@@ -189,18 +191,19 @@ export function HeroSection({ featured }: HeroSectionProps) {
           })}
         </div>
 
-        {/* Bottom stats */}
-        <div className="grid grid-cols-5 divide-x divide-glass border-t border-glass shrink-0">
-          {BOTTOM_STATS.map((s) => (
-            <div key={s.label} className="px-3 py-2.5">
-              <p className="text-[9px] text-[var(--color-text-muted)] leading-tight mb-1">{s.label}</p>
-              <div className="flex items-baseline gap-1.5 flex-wrap">
-                <span className="text-base font-bold text-[var(--color-text-primary)]"
+        {/* Bottom stats — subtle dividers */}
+        <div className="grid grid-cols-5 shrink-0" style={{ borderTop: '1px solid rgba(255,255,255,0.05)' }}>
+          {BOTTOM_STATS.map((s, idx) => (
+            <div key={s.label} className="px-2.5 py-2"
+              style={{ borderRight: idx < 4 ? '1px solid rgba(255,255,255,0.04)' : 'none' }}>
+              <p className="text-[8px] text-[var(--color-text-muted)] leading-tight mb-0.5">{s.label}</p>
+              <div className="flex items-baseline gap-1 flex-wrap">
+                <span className="text-sm font-bold text-[var(--color-text-primary)]"
                   style={{ fontFamily: 'var(--font-mono)' }}>
                   {s.value}
                 </span>
-                <span className="text-[10px] font-semibold text-[#22c55e] flex items-center gap-0.5">
-                  <TrendingUp size={9} />{s.change}
+                <span className="text-[9px] font-semibold text-[#22c55e] flex items-center gap-0.5">
+                  <TrendingUp size={8} />{s.change}
                 </span>
               </div>
             </div>
