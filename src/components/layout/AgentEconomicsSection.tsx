@@ -84,11 +84,10 @@ const TAG_CATEGORIES = [
 
 export function AgentEconomicsSection() {
   return (
-    <section className="mb-10 rounded-2xl border border-white/[0.07] overflow-hidden"
-      style={{ background: 'rgba(13,17,23,0.5)' }}>
+    <section className="mb-10 rounded-2xl border border-glass overflow-hidden bg-surface">
 
       {/* Header */}
-      <div className="flex items-center justify-between px-6 py-4 border-b border-white/[0.06]">
+      <div className="flex items-center justify-between px-6 py-4 border-b border-glass">
         <h2 className="text-base font-bold text-[var(--color-text-primary)]"
           style={{ fontFamily: 'var(--font-display)' }}>
           Agent Economics in AI
@@ -102,15 +101,15 @@ export function AgentEconomicsSection() {
       <div className="grid grid-cols-1 lg:grid-cols-[220px_1fr_200px] gap-0">
 
         {/* ── LEFT: AI Tools Spotlight ── */}
-        <div className="border-r border-white/[0.06] p-5">
+        <div className="border-r border-glass p-5">
           <p className="text-xs font-semibold uppercase tracking-widest text-[var(--color-text-secondary)] mb-4">
             AI Tools Spotlight
           </p>
           <div className="space-y-3">
             {AI_TOOLS.map((tool, i) => (
               <Link key={tool.name} href={tool.href}
-                className="flex gap-3 group hover:bg-white/[0.04] rounded-lg p-1.5 -m-1.5 transition-colors">
-                <div className="w-9 h-9 rounded-lg flex items-center justify-center text-base shrink-0 bg-white/[0.06] border border-white/[0.08] group-hover:border-[var(--color-border-teal)] transition-colors">
+                className="flex gap-3 group hover:bg-[var(--color-border-default)] rounded-lg p-1.5 -m-1.5 transition-colors">
+                <div className="w-9 h-9 rounded-lg flex items-center justify-center text-base shrink-0 bg-surface-elevated border border-glass group-hover:border-[var(--color-border-teal)] transition-colors">
                   {tool.icon}
                 </div>
                 <div className="min-w-0">
@@ -244,7 +243,7 @@ export function AgentEconomicsSection() {
             ))}
           </div>
 
-          <div className="mt-6 pt-4 border-t border-white/[0.06]">
+          <div className="mt-6 pt-4 border-t border-glass">
             <p className="text-[11px] text-[var(--color-text-secondary)] leading-relaxed">
               Radar reflects Q2 2026 on-chain signal quality across 6 agent economy dimensions.
             </p>
