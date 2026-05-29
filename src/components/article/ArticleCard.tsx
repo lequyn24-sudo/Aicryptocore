@@ -124,7 +124,7 @@ export function ArticleCard({ article, variant = 'default', className = '', prio
   return (
     <article className={`card-cosmic group overflow-hidden ${className}`}>
       <Link href={article.href}>
-        <div className="relative aspect-video bg-[#161b22] overflow-hidden">
+        <div className="relative aspect-[16/9] bg-[#161b22] overflow-hidden">
           <Image
             src={article.coverImage}
             alt={article.coverImageAlt}
@@ -134,26 +134,26 @@ export function ArticleCard({ article, variant = 'default', className = '', prio
             className="object-cover transition-transform duration-300 group-hover:scale-105"
           />
         </div>
-        <div className="p-4">
+        <div className="p-3">
           <Badge
             variant={article.sponsored ? 'sponsored' : article.featured ? 'new' : 'category'}
-            className="mb-2"
+            className="mb-1.5"
           >
             {article.sponsored
               ? 'Sponsored'
               : article.category.replace('ai-', 'AI ').replace(/-/g, ' ')}
           </Badge>
-          <h3 className="text-base font-semibold text-[var(--color-text-primary)] group-hover:text-[var(--color-text-teal)] transition-colors line-clamp-2 mb-2 leading-snug">
+          <h3 className="text-sm font-semibold text-[var(--color-text-primary)] group-hover:text-[var(--color-text-teal)] transition-colors line-clamp-2 mb-1.5 leading-snug">
             {article.title}
           </h3>
-          <p className="text-sm text-[var(--color-text-secondary)] line-clamp-2 leading-relaxed mb-3">{article.description}</p>
-          <div className="flex items-center gap-3 text-xs text-[var(--color-text-muted)]">
+          <p className="text-xs text-[var(--color-text-secondary)] line-clamp-2 leading-relaxed mb-2">{article.description}</p>
+          <div className="flex items-center gap-2 text-[10px] text-[var(--color-text-muted)]">
             <span className="flex items-center gap-1">
-              <User size={11} /> {article.author.name}
+              <User size={10} /> {article.author.name}
             </span>
             <span>{formatDate(article.publishedAt)}</span>
-            <span className="flex items-center gap-1">
-              <Clock size={11} /> {formatReadingTime(article.readingTime)}
+            <span className="flex items-center gap-1 ml-auto">
+              <Clock size={10} /> {formatReadingTime(article.readingTime)}
             </span>
           </div>
         </div>

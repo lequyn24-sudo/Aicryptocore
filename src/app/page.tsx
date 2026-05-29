@@ -58,19 +58,17 @@ export default function HomePage() {
         />
       )}
 
-      {/* ── PLATFORM STATS ROW (outside hero, before category nav) ── */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-7">
+      {/* ── PLATFORM STATS — horizontal strip, no heavy cards ── */}
+      <div className="flex items-center gap-0 mb-6 rounded-xl overflow-hidden border border-white/[0.06] divide-x divide-white/[0.06]">
         {platformStats.map((stat) => (
-          <div key={stat.label} className="card-cosmic px-5 py-4 flex items-center gap-4">
-            <div>
-              <div
-                className="text-2xl font-bold leading-none text-[var(--color-text-primary)]"
-                style={{ fontFamily: 'var(--font-mono)' }}
-              >
-                {stat.value}
-              </div>
-              <div className="text-xs text-[var(--color-text-muted)] mt-0.5">{stat.label}</div>
+          <div key={stat.label} className="flex-1 px-5 py-3 text-center bg-white/[0.02] hover:bg-white/[0.04] transition-colors">
+            <div
+              className="text-xl font-bold leading-none text-[var(--color-text-primary)] mb-0.5"
+              style={{ fontFamily: 'var(--font-mono)' }}
+            >
+              {stat.value}
             </div>
+            <div className="text-[10px] text-[var(--color-text-muted)] uppercase tracking-wide">{stat.label}</div>
           </div>
         ))}
       </div>
