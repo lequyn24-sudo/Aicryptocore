@@ -1,149 +1,248 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import { ArrowRight, Clock, User, Zap } from 'lucide-react'
+import { ArrowRight, Info, TrendingUp, TrendingDown } from 'lucide-react'
 import type { Article } from '@/types/article'
-import { formatDate, formatReadingTime } from '@/lib/dates'
+import { formatReadingTime } from '@/lib/dates'
 
-interface StatBox {
-  label: string
-  count: number
-  color: string
-  bg: string
+/* ─── Signal map data ──────────────────────────────────────────── */
+const SPARKLINES = {
+  momentum:    [45,52,48,60,58,70,65,72,78,82],
+  infra:       [50,55,58,54,62,60,66,68,72,75],
+  reliability: [70,68,72,65,60,58,62,60,64,63],
+  narrative:   [55,62,68,72,75,78,82,80,85,88],
+  capital:     [58,60,62,58,65,63,66,68,67,70],
 }
 
+function Sparkline({ values, color, fillColor }: { values: number[]; color: string; fillColor: string }) {
+  const W = 80; const H = 30
+  const min = Math.min(...values); const range = (Math.max(...values) - min) || 1
+  const pts = values.map((v, i) => {
+    const x = (i / (values.length - 1)) * W
+    const y = H - ((v - min) / range) * H * 0.85 - 1
+    return `${x.toFixed(1)},${y.toFixed(1)}`
+  })
+  const area = `M${pts[0]} ${pts.join(' L')} L${W},${H} L0,${H} Z`
+  const line = `M${pts.join(' L')}`
+  return (
+    <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-7" preserveAspectRatio="none">
+      <path d={area} fill={fillColor} />
+      <path d={line} fill="none" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  )
+}
+
+const STATUS: Record<string, { label: string; bg: string; text: string }> = {
+  strong:   { label: 'Strong',   bg: 'rgba(34,197,94,0.15)',  text: '#16a34a' },
+  moderate: { label: 'Moderate', bg: 'rgba(245,158,11,0.15)', text: '#d97706' },
+  very_hot: { label: 'Very Hot', bg: 'rgba(239,68,68,0.15)',  text: '#dc2626' },
+}
+
+const SIGNALS = [
+  { key: 'momentum',    icon: '🚀', iconBg: 'rgba(20,184,166,0.15)',  label: 'Agent Momentum',  value: 78, change: 12.4, status: 'strong',   color: '#14B8A6', fill: 'rgba(20,184,166,0.12)' },
+  { key: 'infra',       icon: '📦', iconBg: 'rgba(147,197,253,0.15)', label: 'Infra Expansion', value: 72, change: 8.7,  status: 'strong',   color: '#60a5fa', fill: 'rgba(96,165,250,0.12)' },
+  { key: 'reliability', icon: '🗄️', iconBg: 'rgba(245,158,11,0.15)',  label: 'Data Reliability',value: 64, change: 5.1,  status: 'moderate', color: '#f59e0b', fill: 'rgba(245,158,11,0.10)' },
+  { key: 'narrative',   icon: '🔥', iconBg: 'rgba(239,68,68,0.15)',   label: 'Narrative Heat',  value: 81, change: 15.6, status: 'very_hot', color: '#ef4444', fill: 'rgba(239,68,68,0.10)' },
+  { key: 'capital',     icon: '⏱️', iconBg: 'rgba(196,181,253,0.15)', label: 'Capital Activity',value: 69, change: 6.3,  status: 'strong',   color: '#a78bfa', fill: 'rgba(167,139,250,0.10)' },
+]
+
+const BOTTOM_STATS = [
+  { label: 'Active Projects',      value: '2,847', change: '+18.3%' },
+  { label: 'On-chain AI Txns (7D)',value: '1.24M', change: '+22.7%' },
+  { label: 'AI Protocols Tracked', value: '468',   change: '+14.1%' },
+  { label: 'Funding (30D)',        value: '$412M', change: '+31.4%' },
+  { label: 'Partnerships (30D)',   value: '147',   change: '+27.6%' },
+]
+
+/* ─── AI Stack Navigator data ─────────────────────────────────── */
+const STACK_LAYERS = [
+  { icon: '⚡', color: '#60a5fa', label: 'Application Layer', desc: 'AI apps and user experiences',         href: '/ai-ecosystem' },
+  { icon: '🤖', color: '#5eead4', label: 'Agent Layer',       desc: 'Autonomous agents & workflows',         href: '/ai-agents' },
+  { icon: '🗃️', color: '#fcd34d', label: 'Data Layer',        desc: 'Datasets, indexing & oracles',          href: '/ai-data' },
+  { icon: '💻', color: '#f97316', label: 'Compute Layer',     desc: 'Compute, GPUs & decentralization',      href: '/ai-infrastructure' },
+  { icon: '⚙️', color: '#a78bfa', label: 'Execution Layer',   desc: 'Settlement, rollups & infra',           href: '/ai-ecosystem' },
+  { icon: '🔒', color: '#34d399', label: 'Security Layer',    desc: 'Security, identity & trust',            href: '/ai-infrastructure' },
+]
+
+/* ─── Component ────────────────────────────────────────────────── */
 interface HeroSectionProps {
   featured: Article
-  recentArticles: Article[]
-  statBoxes: StatBox[]
+  statBoxes?: unknown[]      // kept for API compat, not used
+  recentArticles?: Article[] // kept for API compat, not used
 }
 
-export function HeroSection({ featured, recentArticles, statBoxes }: HeroSectionProps) {
+export function HeroSection({ featured }: HeroSectionProps) {
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-5 mb-6">
+    <div className="grid grid-cols-1 lg:grid-cols-[300px_1fr_260px] gap-4 mb-6">
 
-      {/* ── LEFT: Brand hero card ── */}
-      <div className="cosmic-orbs relative rounded-2xl overflow-hidden min-h-[440px] flex flex-col bg-surface border border-glass">
-        {/* Background image – pushed right, faded */}
-        <div className="absolute inset-0">
+      {/* ════ LEFT: Featured Insight ════ */}
+      <div className="relative rounded-2xl overflow-hidden min-h-[420px] flex flex-col justify-between p-6"
+        style={{ background: 'linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%)' }}>
+
+        {/* Circuit grid overlay */}
+        <div className="absolute inset-0 opacity-10"
+          style={{
+            backgroundImage: `
+              linear-gradient(rgba(99,102,241,0.4) 1px, transparent 1px),
+              linear-gradient(90deg, rgba(99,102,241,0.4) 1px, transparent 1px)
+            `,
+            backgroundSize: '32px 32px',
+          }} />
+
+        {/* Article image — robot-like feel with positioning */}
+        <div className="absolute right-0 bottom-0 w-48 h-48 opacity-30 pointer-events-none">
           <Image
             src={featured.coverImage}
-            alt={featured.coverImageAlt}
+            alt=""
             fill
-            sizes="(max-width: 1024px) 100vw, 65vw"
+            sizes="192px"
+            className="object-cover object-top"
             priority
-            className="object-cover object-center opacity-30"
           />
-          {/* Strong left-side gradient so text is always readable */}
-          <div className="absolute inset-0 bg-gradient-to-r from-[#0d1117] via-[#0d1117]/90 to-[#0d1117]/30" />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0f]/80 via-transparent to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-l from-transparent via-transparent to-[#0f0c29]" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#24243e] to-transparent" />
         </div>
 
+        {/* Glow orb */}
+        <div className="absolute bottom-12 right-12 w-32 h-32 rounded-full pointer-events-none"
+          style={{ background: 'radial-gradient(circle, rgba(99,102,241,0.35) 0%, transparent 70%)' }} />
+
         {/* Content */}
-        <div className="relative z-10 flex flex-col flex-1 p-7 md:p-9">
-          {/* Top badge */}
-          <div className="mb-5">
-            <span className="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-full badge-teal">
-              <Zap size={9} /> Featured
-            </span>
-          </div>
+        <div className="relative z-10">
+          {/* Badge */}
+          <span className="inline-flex items-center text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-full mb-4"
+            style={{ background: 'rgba(99,102,241,0.25)', color: '#a5b4fc', border: '1px solid rgba(99,102,241,0.35)' }}>
+            Featured Insight
+          </span>
 
           {/* Title */}
-          <h1
-            className="text-2xl md:text-[28px] lg:text-3xl font-bold text-white leading-tight mb-5 max-w-[520px]"
-            style={{ fontFamily: 'var(--font-display)' }}
-          >
+          <h1 className="text-xl font-bold text-white leading-snug mb-3"
+            style={{ fontFamily: 'var(--font-display)' }}>
             {featured.title}
           </h1>
 
-          {/* ── Stat boxes: immediately after title (matches reference) ── */}
-          <div className="flex gap-2.5 mb-5 flex-wrap">
-            {statBoxes.map((s) => (
-              <div
-                key={s.label}
-                className="rounded-xl px-4 py-2.5 border text-center min-w-[72px]"
-                style={{ background: s.bg, borderColor: s.color + '35' }}
-              >
-                <div
-                  className="text-2xl font-bold font-mono leading-none mb-0.5"
-                  style={{ color: s.color, fontFamily: 'var(--font-mono)' }}
-                >
-                  {s.count}
-                </div>
-                <div className="text-[11px] uppercase tracking-wide text-[var(--color-text-secondary)] leading-tight">
-                  {s.label}
-                </div>
-              </div>
-            ))}
-          </div>
-
           {/* Description */}
-          <p className="text-sm text-[var(--color-text-secondary)] line-clamp-2 mb-6 max-w-md leading-relaxed">
+          <p className="text-sm text-white/60 leading-relaxed line-clamp-3">
             {featured.description}
           </p>
+        </div>
 
-          {/* CTA */}
-          <div className="flex items-center gap-4 mb-auto">
-            <Link
-              href={featured.href}
-              className="btn-amber"
-            >
-              Get Started <ArrowRight size={14} />
-            </Link>
-            <div className="flex items-center gap-3 text-xs text-[var(--color-text-secondary)]">
-              <span className="flex items-center gap-1"><User size={11} /> {featured.author.name}</span>
-              <span className="flex items-center gap-1"><Clock size={11} /> {formatReadingTime(featured.readingTime)}</span>
-            </div>
+        {/* Bottom: CTA + dots */}
+        <div className="relative z-10">
+          <Link href={featured.href} className="btn-amber inline-flex items-center gap-2 mb-4">
+            Read Full Insight <ArrowRight size={14} />
+          </Link>
+
+          {/* Pagination dots */}
+          <div className="flex items-center gap-1.5">
+            <span className="w-5 h-1.5 rounded-full bg-white/80" />
+            <span className="w-1.5 h-1.5 rounded-full bg-white/30" />
+            <span className="w-1.5 h-1.5 rounded-full bg-white/30" />
+            <span className="w-1.5 h-1.5 rounded-full bg-white/30" />
           </div>
         </div>
       </div>
 
-      {/* ── RIGHT: Recent articles stacked ── */}
-      <div className="flex flex-col gap-0">
-        <div className="flex items-center justify-between px-1 mb-3">
-          <span className="text-[10px] font-bold uppercase tracking-widest text-[var(--color-text-muted)]">
-            Latest Articles
-          </span>
-          <Link
-            href="/search"
-            className="text-[10px] text-[var(--color-text-teal)] hover:text-[var(--color-accent)] transition-colors flex items-center gap-1"
-          >
-            View all <ArrowRight size={10} />
-          </Link>
+      {/* ════ CENTER: Signal Map ════ */}
+      <div className="rounded-2xl border border-glass overflow-hidden bg-surface flex flex-col">
+        {/* Header */}
+        <div className="flex items-center justify-between px-4 py-3 border-b border-glass shrink-0">
+          <div className="flex items-center gap-2">
+            <span className="text-xs font-bold uppercase tracking-wide text-[var(--color-text-primary)]"
+              style={{ fontFamily: 'var(--font-display)' }}>
+              AI × Crypto Signal Map
+            </span>
+            <Info size={12} className="text-[var(--color-text-muted)]" />
+          </div>
+          <div className="flex items-center gap-1.5 text-xs text-[var(--color-text-muted)]">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#22c55e] animate-pulse" />
+            Updated just now
+          </div>
         </div>
 
-        <div className="flex flex-col gap-2">
-          {recentArticles.slice(0, 5).map((article) => (
-            <Link
-              key={article.slug}
-              href={article.href}
-              className="group flex gap-3 p-3 rounded-xl bg-surface border border-glass hover:border-[var(--color-border-teal)] transition-all duration-200"
-            >
-              {/* Thumbnail */}
-              <div className="relative w-[66px] h-[50px] rounded-lg overflow-hidden shrink-0 bg-surface-elevated">
-                <Image
-                  src={article.coverImage}
-                  alt={article.coverImageAlt}
-                  fill
-                  sizes="66px"
-                  className="object-cover group-hover:scale-105 transition-transform duration-300"
-                />
-              </div>
-              {/* Text */}
-              <div className="flex-1 min-w-0">
-                <span className="badge-teal text-[9px] font-medium px-1.5 py-0.5 rounded-full inline-block mb-1">
-                  {article.category.replace('ai-', 'AI ').replace(/-/g, ' ')}
+        {/* Signal cards */}
+        <div className="grid grid-cols-5 divide-x divide-glass flex-1">
+          {SIGNALS.map((sig) => {
+            const st = STATUS[sig.status]
+            const data = SPARKLINES[sig.key as keyof typeof SPARKLINES]
+            return (
+              <div key={sig.key} className="p-3 flex flex-col gap-2">
+                {/* Icon */}
+                <div className="w-9 h-9 rounded-xl flex items-center justify-center text-base shrink-0"
+                  style={{ background: sig.iconBg }}>
+                  {sig.icon}
+                </div>
+                <p className="text-[10px] text-[var(--color-text-secondary)] leading-tight">{sig.label}</p>
+                <span className="text-2xl font-bold text-[var(--color-text-primary)]"
+                  style={{ fontFamily: 'var(--font-mono)' }}>
+                  {sig.value}
                 </span>
-                <h3 className="text-xs font-medium text-[var(--color-text-secondary)] group-hover:text-[var(--color-text-primary)] leading-snug line-clamp-2 transition-colors">
-                  {article.title}
-                </h3>
-                <p className="text-xs text-[var(--color-text-muted)] mt-0.5">
-                  {formatDate(article.publishedAt)}
-                </p>
+                <div className="flex items-center gap-0.5 text-[11px] font-semibold text-[#22c55e]">
+                  <TrendingUp size={10} /> +{sig.change}%
+                </div>
+                <Sparkline values={data} color={sig.color} fillColor={sig.fill} />
+                <span className="inline-block text-[10px] font-semibold px-2 py-0.5 rounded-full"
+                  style={{ background: st.bg, color: st.text }}>
+                  {st.label}
+                </span>
               </div>
-            </Link>
+            )
+          })}
+        </div>
+
+        {/* Bottom stats */}
+        <div className="grid grid-cols-5 divide-x divide-glass border-t border-glass shrink-0">
+          {BOTTOM_STATS.map((s) => (
+            <div key={s.label} className="px-3 py-2.5">
+              <p className="text-[9px] text-[var(--color-text-muted)] leading-tight mb-1">{s.label}</p>
+              <div className="flex items-baseline gap-1.5 flex-wrap">
+                <span className="text-base font-bold text-[var(--color-text-primary)]"
+                  style={{ fontFamily: 'var(--font-mono)' }}>
+                  {s.value}
+                </span>
+                <span className="text-[10px] font-semibold text-[#22c55e] flex items-center gap-0.5">
+                  <TrendingUp size={9} />{s.change}
+                </span>
+              </div>
+            </div>
           ))}
         </div>
       </div>
+
+      {/* ════ RIGHT: AI Stack Navigator ════ */}
+      <div className="rounded-2xl border border-glass bg-surface p-5 flex flex-col">
+        <p className="text-xs font-bold uppercase tracking-widest text-[var(--color-text-primary)] mb-4"
+          style={{ fontFamily: 'var(--font-display)' }}>
+          AI Stack Navigator
+        </p>
+
+        <ul className="flex-1 space-y-1">
+          {STACK_LAYERS.map((layer) => (
+            <li key={layer.label}>
+              <Link href={layer.href}
+                className="flex items-start gap-3 p-2.5 rounded-xl hover:bg-[var(--color-border-default)] transition-colors group">
+                <div className="w-8 h-8 rounded-lg flex items-center justify-center text-sm shrink-0 mt-0.5"
+                  style={{ background: layer.color + '18', border: `1px solid ${layer.color}30` }}>
+                  {layer.icon}
+                </div>
+                <div className="min-w-0">
+                  <p className="text-xs font-semibold text-[var(--color-text-primary)] group-hover:text-[var(--color-text-teal)] transition-colors leading-snug">
+                    {layer.label}
+                  </p>
+                  <p className="text-[10px] text-[var(--color-text-muted)] leading-snug mt-0.5">
+                    {layer.desc}
+                  </p>
+                </div>
+              </Link>
+            </li>
+          ))}
+        </ul>
+
+        <Link href="/ai-ecosystem"
+          className="mt-4 flex items-center justify-center gap-1.5 py-2 rounded-xl border border-[var(--color-border-teal)] text-xs font-semibold text-[var(--color-text-teal)] hover:bg-[var(--color-border-teal)] hover:text-[var(--color-text-primary)] transition-all">
+          View All Layers <ArrowRight size={12} />
+        </Link>
+      </div>
+
     </div>
   )
 }

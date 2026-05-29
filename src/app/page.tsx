@@ -3,7 +3,6 @@ import { CategoryNavRow } from '@/components/layout/CategoryNavRow'
 import { CategorySection } from '@/components/layout/CategorySection'
 import { ProjectsSection } from '@/components/layout/ProjectsSection'
 import { AgentEconomicsSection } from '@/components/layout/AgentEconomicsSection'
-import { SignalMap } from '@/components/layout/SignalMap'
 import { Sidebar } from '@/components/layout/Sidebar'
 import { ArticleCard } from '@/components/article/ArticleCard'
 import {
@@ -57,9 +56,6 @@ export default function HomePage() {
           statBoxes={statBoxes}
         />
       )}
-
-      {/* ── SIGNAL MAP — full width, part of hero area ── */}
-      <SignalMap />
 
       {/* ── PLATFORM STATS ── */}
       <div className="flex items-center gap-0 mb-6 rounded-xl overflow-hidden border border-glass divide-x divide-glass">
