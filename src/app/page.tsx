@@ -2,6 +2,7 @@ import { HeroSection } from '@/components/layout/HeroSection'
 import { CategoryNavRow } from '@/components/layout/CategoryNavRow'
 import { CategorySection } from '@/components/layout/CategorySection'
 import { ProjectsSection } from '@/components/layout/ProjectsSection'
+import { AgentEconomicsSection } from '@/components/layout/AgentEconomicsSection'
 import { Sidebar } from '@/components/layout/Sidebar'
 import { ArticleCard } from '@/components/article/ArticleCard'
 import {
@@ -100,6 +101,9 @@ export default function HomePage() {
 
           {/* Projects section */}
           <ProjectsSection articles={projectArticles} />
+
+          {/* Agent Economics — radar chart + tools spotlight */}
+          <AgentEconomicsSection />
 
           {/* Category sections — 4 articles each; AI Data uses horizontal card layout */}
           {mainCategories.map((category) => {
