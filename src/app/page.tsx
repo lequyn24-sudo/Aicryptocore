@@ -3,6 +3,7 @@ import { CategoryNavRow } from '@/components/layout/CategoryNavRow'
 import { CategorySection } from '@/components/layout/CategorySection'
 import { ProjectsSection } from '@/components/layout/ProjectsSection'
 import { AgentEconomicsSection } from '@/components/layout/AgentEconomicsSection'
+import { SignalMap } from '@/components/layout/SignalMap'
 import { Sidebar } from '@/components/layout/Sidebar'
 import { ArticleCard } from '@/components/article/ArticleCard'
 import {
@@ -82,6 +83,9 @@ export default function HomePage() {
 
         {/* LEFT */}
         <div className="min-w-0">
+
+          {/* Signal Map */}
+          <SignalMap />
 
           {/* 4-col article grid */}
           {gridArticles.length > 0 && (
