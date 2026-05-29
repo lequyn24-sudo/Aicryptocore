@@ -1,0 +1,79 @@
+import { notFound } from 'next/navigation'
+import type { Metadata } from 'next'
+import { ArticleGrid } from '@/components/article/ArticleGrid'
+import { Sidebar } from '@/components/layout/Sidebar'
+import { SubcategoryFilterTabs } from '@/components/article/SubcategoryFilterTabs'
+import { getCategoryBySlug, CATEGORY_SLUGS } from '@/lib/categories'
+import { getArticlesByCategory, getTrendingArticles } from '@/lib/content'
+import { SITE_NAME } from '@/lib/constants'
+import type { CategorySlug } from '@/types/category'
+
+export const revalidate = 900
+
+interface PageProps {
+  params: Promise<{ category: string }>
+}
+
+export async function generateStaticParams() {
+  return CATEGORY_SLUGS.filter(
+    (s) => s !== 'sponsored-articles' && s !== 'press-release'
+  ).map((slug) => ({ category: slug }))
+}
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { category: categorySlug } = await params
+  const category = getCategoryBySlug(categorySlug)
+  if (!category) return {}
+  return {
+    title: `${category.label} News & Analysis`,
+    description: category.description,
+    openGraph: { title: `${category.label} | ${SITE_NAME}`, description: category.description },
+  }
+}
+
+export default async function CategoryPage({ params }: PageProps) {
+  const { category: categorySlug } = await params
+  const category = getCategoryBySlug(categorySlug)
+
+  if (!category) notFound()
+
+  const articles = getArticlesByCategory(category.slug as CategorySlug)
+  const trendingArticles = getTrendingArticles(5)
+
+  return (
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8">
+      {/* Category Header */}
+      <div className="mb-8 pb-6 border-b border-teal-800/40">
+        <div className="flex items-center gap-2 mb-2">
+          <span className="text-xs font-semibold text-teal-500 uppercase tracking-wider">Category</span>
+        </div>
+        <h1
+          className="text-3xl font-bold text-teal-50 mb-3"
+          style={{ fontFamily: 'var(--font-display)' }}
+        >
+          {category.label}
+        </h1>
+        <p className="text-teal-400 text-lg max-w-2xl leading-relaxed mb-2">{category.description}</p>
+        <p className="text-sm text-teal-500">{articles.length} articles</p>
+      </div>
+
+      {/* Subcategory Filter */}
+      <SubcategoryFilterTabs
+        subcategories={category.subcategories}
+        categorySlug={category.slug}
+      />
+
+      {/* Main content + Sidebar */}
+      <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-8">
+        <div>
+          <ArticleGrid articles={articles} variant="default" />
+        </div>
+        <div className="hidden lg:block">
+          <div className="sticky top-24">
+            <Sidebar trendingArticles={trendingArticles} />
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
