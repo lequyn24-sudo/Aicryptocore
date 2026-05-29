@@ -140,7 +140,7 @@ export function HeroSection({ featured }: HeroSectionProps) {
       </div>
 
       {/* ════ CENTER: Signal Map ════ */}
-      <div className="rounded-2xl border border-glass overflow-hidden bg-surface flex flex-col justify-between">
+      <div className="rounded-2xl border border-glass overflow-hidden bg-surface h-fit self-start w-full">
         {/* Header */}
         <div className="flex items-center justify-between px-4 py-2.5 shrink-0"
           style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
@@ -163,23 +163,24 @@ export function HeroSection({ featured }: HeroSectionProps) {
             const st = STATUS[sig.status]
             const data = SPARKLINES[sig.key as keyof typeof SPARKLINES]
             return (
-              <div key={sig.key} className="p-2.5 flex flex-col gap-1.5"
+              <div key={sig.key}
+                className="py-3 px-2 flex flex-col items-center text-center gap-1"
                 style={{ borderRight: idx < 4 ? '1px solid rgba(255,255,255,0.04)' : 'none' }}>
-                {/* Icon */}
-                <div className="w-7 h-7 rounded-lg flex items-center justify-center text-sm shrink-0"
+                {/* Icon 48px */}
+                <div className="w-12 h-12 rounded-xl flex items-center justify-center text-2xl shrink-0"
                   style={{ background: sig.iconBg }}>
                   {sig.icon}
                 </div>
                 <p className="text-[9px] text-[var(--color-text-secondary)] leading-tight">{sig.label}</p>
-                <span className="text-xl font-bold text-[var(--color-text-primary)]"
+                <span className="text-xl font-bold text-[var(--color-text-primary)] leading-none"
                   style={{ fontFamily: 'var(--font-mono)' }}>
                   {sig.value}
                 </span>
-                <div className="flex items-center gap-0.5 text-[10px] font-semibold text-[#22c55e]">
+                <div className="flex items-center justify-center gap-0.5 text-[10px] font-semibold text-[#22c55e]">
                   <TrendingUp size={9} /> +{sig.change}%
                 </div>
                 <Sparkline values={data} color={sig.color} fillColor={sig.fill} />
-                <span className="inline-block text-[9px] font-semibold px-1.5 py-0.5 rounded-full"
+                <span className="inline-block text-[9px] font-semibold px-2 py-0.5 rounded-full"
                   style={{ background: st.bg, color: st.text }}>
                   {st.label}
                 </span>
@@ -191,10 +192,10 @@ export function HeroSection({ featured }: HeroSectionProps) {
         {/* Bottom stats — subtle dividers */}
         <div className="grid grid-cols-5 shrink-0" style={{ borderTop: '1px solid rgba(255,255,255,0.05)' }}>
           {BOTTOM_STATS.map((s, idx) => (
-            <div key={s.label} className="px-2.5 py-2"
+            <div key={s.label} className="px-2 py-2.5 flex flex-col items-center text-center gap-0.5"
               style={{ borderRight: idx < 4 ? '1px solid rgba(255,255,255,0.04)' : 'none' }}>
-              <p className="text-[8px] text-[var(--color-text-muted)] leading-tight mb-0.5">{s.label}</p>
-              <div className="flex items-baseline gap-1 flex-wrap">
+              <p className="text-[8px] text-[var(--color-text-muted)] leading-tight">{s.label}</p>
+              <div className="flex items-baseline justify-center gap-1 flex-wrap">
                 <span className="text-sm font-bold text-[var(--color-text-primary)]"
                   style={{ fontFamily: 'var(--font-mono)' }}>
                   {s.value}
